@@ -1,5 +1,5 @@
 # Contributers:
 * Emad Saeed
 * Marc Medhat
-* Manary Elsayed
+* Manar Elsayed
 * Nour A. Elstohy
