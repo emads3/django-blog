@@ -77,9 +77,9 @@ WSGI_APPLICATION = 'forum.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'djangodb',
+        'NAME': 'blogproject',
 	'USER': 'root' ,	
-	'PASSWORD':''
+	'PASSWORD':'noursql'
     }
 }
 
