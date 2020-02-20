@@ -28,7 +28,3 @@ class Forbidden_Words(models.Model):
     word_id = models.AutoField(primary_key=True)
     word = models.CharField(max_length=200)
 
-
-class Categories(models.model):
-    cat_id = models.AutoField(primary_key=True)
-    name = name = models.CharField(max_length=200)
