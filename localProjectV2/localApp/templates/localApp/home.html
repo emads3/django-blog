@@ -1,9 +1,7 @@
 {% extends "localApp/base.html" %}
-{% load static %}
 {%block content%}
 <h1><center><a href="addpost">Add Post</a></center></h1>
 <h1 class="text-center mb-3">Posts</h1>	
-<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
 	{%if latest_post_list%}
 		{%for post in latest_post_list%}
 				<center><a href="showpost/{{post.id}}">{{ post.post_title }}</a></center>
@@ -11,14 +9,10 @@
 				<br>
 				<p class="lead">{{ post.post_text }}</p>								
 				<p class="lead">{{ post.post_date }}</p>
-				{% for comment in latest_comment %}
-					<p class="lead">{{ comment.comment_text }}</p>
-					<p class="lead">{{ comment.date }}</p>
-				{% endfor %}
-			<!-- 	<button type="button" name="likeBtn">Like</button>
-				<button type="button" name="dislikeBtn">Dislike</button> -->
-				<a href="" class="btn btn-primary btn-sm">Like</a>
+				<a href="likes" class="btn btn-primary btn-sm">Like</a>
 				<a href="" class="btn btn-primary btn-sm">Dislike</a>
+				<span class="badge badge-success float-right">Dislikes</span>
+				<span class="badge badge-success float-right">Likes</span>
 				<hr>
 		{%endfor%}
 	{%else%}

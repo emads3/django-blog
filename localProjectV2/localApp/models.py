@@ -46,3 +46,8 @@ class Post_Tags(models.Model):
 
 class Forbidden_Words(models.Model):
 	forbidden_word = models.CharField(max_length = 100)
+
+class Post_Likes_Dislikes(models.Model):
+	post = models.ForeignKey(Posts , on_delete = models.DO_NOTHING)
+	likes = models.IntegerField(default = 0)
+	dislikes = models.IntegerField(default = 0)

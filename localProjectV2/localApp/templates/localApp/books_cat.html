@@ -1,0 +1,22 @@
+{% extends 'localApp/base.html' %}
+{% block content %}
+	<h1 class="text-center mb-3">Books Posts</h1>
+	{% if books_cat %}
+	{% for books_posts in books_cat %}
+		<center><a href="showpost/{{books_posts.id}}">{{ books_posts.post_title }}</a></center>
+				<center><img src="{{ books_posts.post_image.url }}" width="450px" height="350px"></center>
+				<br>
+				<p class="lead">{{ books_posts.post_text }}</p>								
+				<p class="lead">{{ books_posts.post_date }}</p>
+			<!-- 	<button type="button" name="likeBtn">Like</button>
+				<button type="button" name="dislikeBtn">Dislike</button> -->
+				<a href="" class="btn btn-primary btn-sm">Like</a>
+				<a href="" class="btn btn-primary btn-sm">Dislike</a>
+				<span class="badge badge-success float-right">Dislikes</span>
+				<span class="badge badge-success float-right">Likes</span>
+				<hr>
+	{% endfor %}
+	{% else %}
+		<p>No Posts available in this category</p>
+	{% endif %}
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends 'localApp/base.html' %}
+{% block content %}
+	<h1 class="text-center mb-3">Sports Posts</h1>
+	{% if sports_cat %}
+	{% for sports_posts in sports_cat %}
+		<center><a href="showpost/{{sports_posts.id}}">{{ sports_posts.post_title }}</a></center>
+				<center><img src="{{ sports_posts.post_image.url }}" width="450px" height="350px"></center>
+				<br>
+				<p class="lead">{{ sports_posts.post_text }}</p>								
+				<p class="lead">{{ sports_posts.post_date }}</p>
+			<!-- 	<button type="button" name="likeBtn">Like</button>
+				<button type="button" name="dislikeBtn">Dislike</button> -->
+				<a href="" class="btn btn-primary btn-sm">Like</a>
+				<a href="" class="btn btn-primary btn-sm">Dislike</a>
+				<span class="badge badge-success float-right">Dislikes</span>
+				<span class="badge badge-success float-right">Likes</span>
+				<hr>
+	{% endfor %}
+	{% else %}
+		<p>No Posts available in this category</p>
+	{% endif %}
+{% endblock %}
