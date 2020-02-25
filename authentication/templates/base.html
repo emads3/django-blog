@@ -1,14 +1,22 @@
 <!doctype.html>
 <html>
     <head>
-        <title>{% block title %}{% endblock  %} </title>
+        <title>{% block title %}{% endblock title %} </title>
         <meta charset="utf-8">
     </head>
 
     <body>
         <h1>My site</h1>
-        <hr>
+        <hr> 
+        <a href="{% url 'home'%}">Home</a>
+        {% if user.is_authenticated %}
+            <a href="{% url 'password_change'%}">Change Password</a>
+            <a href="{% url 'logout'%}">Log Out</a>
+        {% else %}
+            <a href="{% url 'register'%}">Register</a>
+            <a href="{% url 'login'%}">Log in</a>
+        {% endif %}
         {% block content %}
-        {% endblock  %}
+        {% endblock content %}
     </body>
 </html>
