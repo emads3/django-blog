@@ -2,5 +2,11 @@
 
 {% block content %}
     <h2>Home page </h2>
-    <h4>Welcome to my site </h4>
+    <h4>Welcome to my site 
+        {% if user.is_authenticated %}
+            {{ user.username }}
+        {% else %}
+            Nouraaaaaaaaaaa
+        {% endif %}
+    </h4>
 {% endblock  %}
