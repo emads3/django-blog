@@ -1,10 +1,10 @@
 {% extends "localApp/base.html" %}
 {%block content%}
-<h1><center><a href="addpost">Add Post</a></center></h1>
+<h1><center><a href="{% url 'addpost' %}">Add Post</a></center></h1>
 <h1 class="text-center mb-3">Posts</h1>	
 	{%if latest_post_list%}
 		{%for post in latest_post_list%}
-				<center><a href="showpost/{{post.id}}">{{ post.post_title }}</a></center>
+				<center><a href="{% url 'showpost' post.id %}">{{ post.post_title }}</a></center>
 				<center><img src="{{ post.post_image.url }}" width="450px" height="350px"></center>
 				<br>
 				<p class="lead">{{ post.post_text }}</p>								
