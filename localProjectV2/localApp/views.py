@@ -4,13 +4,15 @@ from django.http import HttpResponse,HttpResponseRedirect
 from localApp.forms import PostForm,UserForm
 
 def home(request):
-	latest_post_list = Posts.objects.all()
+	latest_post_list = Posts.objects.order_by('-post_date')[:5]
 	context = {'latest_post_list' : latest_post_list}
 	return render(request,'localApp/home.html',context)
 
 def details(request,num):		#for when a user wants to see the details of a specific post
 	post = Posts.objects.get(id = num)
-	context = { 'post_obj':post }
+	comment = Comments.objects.filter(post_id = num)
+	context = { 'post_obj':post , 
+				'comment':comment }
 	return render(request,'localApp/details.html',context)
 
 
@@ -61,3 +63,5 @@ def adduser(request):			#if the register button was pressed
 
 # def comments(request,num):
 # 	comment = Comments.objects.filter(post_id = num)
+# 	context = { 'comment':comment }
+# 	return render(request,'localApp/details.html')
