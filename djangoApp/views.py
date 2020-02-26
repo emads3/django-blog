@@ -1,3 +1,4 @@
+
 from django.shortcuts import render, redirect
 # from .models import Post,post_likes,Forbidden_Words
 from django.http import HttpResponse ,  HttpResponseRedirect
@@ -6,9 +7,14 @@ from djangoApp.form import   ForbiddenForm #UserForm , PostForm , CategoryForm ,
 # Create your views here.
 
 
+def base(request):
+	context={}
+	return render(request,'djangoApp/base.html/',context)
+
+
 def adminPanel(request):
 	context={}
-	return render(request,'djangoApp/index.html/',context)
+	return render(request,'djangoApp/adminpanel.html/',context)
 
 #Posts
 
@@ -105,10 +111,10 @@ def categories_table(request):
 
 # forbbidden_words
 
-def forbidden_words_table(request):
+def forbiden_words_table(request):
 	#all_forbbidden_words= Forbidden_Words.objects.all()
 	#context = {'forbidden_words':all_forbidden_words}
-	return render(request,'/djangoApp/forbidden_words_table')
+	return render(request,'djangoApp/forbiden_words_table.html/') 
 
 
 def addforbbiddenWord(request):
@@ -120,7 +126,7 @@ def addforbbiddenWord(request):
 			return HttpResponseRedirect('#')  #path of addforbbiddenWord.html
 	else:
 		context={'forbbiddenWords_Form':forbbiddenWords_form}
-		return render(request,'/djangoApp/forbidden_words_table',context)  #path of addforbbiddenWord.html
+		return render(request,'djangoApp/forbidden_words_table',context)  #path of addforbbiddenWord.html
 
 # def deleteforbbiddenWord(request,num):
 # 	obj =  Forbidden_Words.objects.get(id = num)
