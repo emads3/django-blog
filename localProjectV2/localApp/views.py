@@ -11,8 +11,10 @@ def home(request):
 def details(request,num):		#for when a user wants to see the details of a specific post
 	post = Posts.objects.get(id = num)
 	comment = Comments.objects.filter(post_id = num)
+	likes_dislikes = Post_Likes_Dislikes.objects.filter(post = num)
 	context = { 'post_obj':post , 
-				'comment':comment }
+				'comment':comment ,
+				'likes_dislikes':likes_dislikes }
 	return render(request,'localApp/details.html',context)
 
 

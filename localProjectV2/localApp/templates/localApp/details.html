@@ -12,7 +12,9 @@
 {% endfor %}
 <a href="likes" class="btn btn-primary btn-sm float-left">Like</a>
 <a href="" class="btn btn-primary btn-sm float-left">Dislike</a>
-<span class="badge badge-success float-right">Dislikes</span>
-<span class="badge badge-success float-right">Likes</span>
+{% for likes in likes_dislikes %}
+<span class="badge badge-success float-right">{{ likes.dislikes }} dislikes</span>
+<span class="badge badge-success float-right">{{ likes.likes }} likes</span>
+{% endfor %}
 </center>
 {% endblock %}
