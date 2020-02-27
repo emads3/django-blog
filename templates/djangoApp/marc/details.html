@@ -5,7 +5,11 @@
 <img src="{{ post_obj.post_image.url }}" width="450px" height="350px">
 <p class="lead">{{ post_obj.post_text }}</p>
 <p class="lead">{{ post_obj.post_date }}</p>
-<h4>Comments:</h4>
+<!-- <h4>Comments:</h4> -->
+
+
+
+
 {% for comment in comment %}
 <p class="lead">{{ comment.comment_text }}</p>
 <br>

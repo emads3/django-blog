@@ -26,6 +26,7 @@ class Comments(models.Model):
 	date = models.DateTimeField(default = timezone.now())
 	post = models.ForeignKey(Post , on_delete = models.DO_NOTHING)
 	user = models.ForeignKey(User , on_delete = models.DO_NOTHING)
+	reply = models.ForeignKey('self' , on_delete=models.CASCADE,null=True,blank=True,related_name='replies')
 	
 	def __str__(self):
 		return self.comment_text
@@ -40,6 +41,11 @@ class post_likes(models.Model):
 class Tag(models.Model):
 	name = models.CharField(max_length=200)
 	post_tag = models.ManyToManyField(Post)
+
+# class Reply(models.Model):
+# 	reply_text = models.CharField(max_length = 900)
+# 	comment = models.ForeignKey(Comments , on_delete = models.DO_NOTHING)
+# 	user = models.ForeignKey(User ,on_delete=models.DO_NOTHING)
 
 
 class subscribe(models.Model):

@@ -29,7 +29,9 @@
                                 </div>
                                    <a class="nav-link" href="{% url 'homepage' %}">homepage </a>
 
-                                   <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsecategories" aria-expanded="false" aria-controls="collapsecategories">
+                                   <div>
+                                  <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsecategories" aria-expanded="false" aria-controls="collapsecategories">
+
 
                                  <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
                                  categories
@@ -39,15 +41,39 @@
                                 <nav class="sb-sidenav-menu-nested nav accordion" id="collapsecategories">
 
                                     {% for category in all_categories %}
+<<<<<<< HEAD
                                         <a class="nav-link" href="{% url 'categorypage' category.cat_name %}" >{{category.cat_name }} </a>
                                         {% comment %} {% if category in lst %}
                                             <a href= "{% url 'unsubscribe' cat_id= category%}">subcribed</a>
                                         {% else %}
                                             <a href= "{% url 'subscribes' cat_id = category %}">subcribe</a>
                                         {% endif %} {% endcomment %}
+=======
+                                 <a class="nav-link" href="{% url 'categorypage' category.cat_name %}" >{{category.cat_name }} </a>
                                     {% endfor %}
                                    
-                                   </nav>
+                                </nav>
+                                </div>
+
+
+                                <div>
+                                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target=
+                                "#collapsetags" aria-expanded="false" aria-controls="collapsetags">
+
+                                 <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
+                                 Tags
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                                </a>
+                                <div class="collapse" id="collapsetags" aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav accordion" id="collapsetags">
+
+                                    {% for tag in all_tags %}
+                                      <a class="nav-link" href="{% url 'categorypage' tag.name %}" >{{tag.name }} </a>
+>>>>>>> manar
+                                    {% endfor %}
+                                   
+                                </nav>
+                            </div>
                            
                        {% endblock %}  
                   
