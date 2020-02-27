@@ -153,14 +153,14 @@ def deleteuser(request,num):
 # 	user.is_active="True"
 # 	return HttpResponseRedirect('djangoApp/users_table/')
  
-   #--------------------------------------------------------------------
+#--------------------------------------------------------------------
 
 # #categories
 
 def categories_table(request):
 	all_categories= Categories.objects.all()  #categories!!
-	subs = subscribe.objects.filter(user_id = request.user).values_list('cat_id',flat=True)
-	lst=[]
+	# subs = subscribe.objects.filter(user_id = request.user).values_list('cat_id',flat=True)
+	# lst=[]
 	# for cat in ca
 	context = {'all_categories':all_categories }
 	return render(request,'djangoApp/categories_table.html/',context)  
