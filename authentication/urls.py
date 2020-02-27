@@ -7,11 +7,11 @@ from django.views.generic.base import TemplateView
 login_forbidden =  user_passes_test(lambda u: u.is_anonymous(), 'home')
 
 urlpatterns = [
-    path('home/', views.home, name="home"),
+    path('app/adminpanel', views.home, name="home"),
     path('register/', views.register, name="register"),
     # path('accounts/', include('django.contrib.auth.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
-    path('', TemplateView.as_view(template_name='djangoApp/adminpanel.html'), name='home' ),
+    # path('', TemplateView.as_view(template_name='djangoApp/adminpanel.html'), name='home' ),
 
     ]
 
