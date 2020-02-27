@@ -89,11 +89,12 @@
                     </div>
                 </nav>
             </div>
+            
 
 
             <div id="layoutSidenav_content">
                 <main>
-                    <div class="container-fluid">
+                    <div class="container">
                      
 
                         <center>
@@ -101,11 +102,28 @@
                         <img src="{{ post_obj.post_image.url }}" width="450px" height="350px">
                         <p class="lead">{{ post_obj.post_text }}</p>
                         <p class="lead">{{ post_obj.post_date }}</p>
-                        <h4>Comments:</h4>
+                        <!-- <h4>Comments:</h4> -->
+
+                        <form method="POST" action="addcomment">
+                            {% csrf_token %}
+                            <label for="comment"></label>
+                            <!-- <input type="textarea" name="comment"> -->
+                            <!-- <input type="submit" name="" value="comment"> -->
+                            <textarea name="comment" rows="3" cols="60" placeholder="add comment"></textarea>
+                            <button type="submit" class="btn btn-primary btn-sm">comment</button>
+                        </form>
                         {% for comment in comment %}
-                        <p class="lead">{{ comment.comment_text }}</p>
-                        <br>
+                        <h3 class="lead">{{ comment.comment_text }}</h3>
+                     <!--    <form method="POST" action="addcomment">
+                            {% csrf_token %}
+                            <label for="comment_reply"></label>
+                            <textarea name="comment_reply" rows="3" cols="60" placeholder="add reply"></textarea>
+                            <button type="submit" class="btn btn-primary btn-sm">reply</button>
+                        </form> -->
                         {% endfor %}
+<!--                         {% for reply in reply %}
+                        <h6 class="lead">{{ reply.reply_text }}</h6>
+                        {% endfor %} -->
                         <a href="likes" class="btn btn-primary btn-sm float-left">Like</a>
                         <a href="" class="btn btn-primary btn-sm float-left">Dislike</a>
                         {% for likes in likes_dislikes %}

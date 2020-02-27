@@ -21,7 +21,7 @@ class UserForm(forms.ModelForm):
 	password2 = forms.CharField(widget=forms.PasswordInput(attrs={'class':'form-control'}))
 	class Meta:
 		model = User
-		fields = ('id','username', 'password' , 'email','is_active' , 'is_staff' , 'is_superuser') #hna hzwod el fields bta3t el users elly h3adl 3leha
+		fields = ('id','username', 'first_name' , 'last_name','password' , 'email','is_active' , 'is_staff' , 'is_superuser') #hna hzwod el fields bta3t el users elly h3adl 3leha
 
 	def clean_password2(self):
 		cleaned_data=super(UserForm , self).clean()

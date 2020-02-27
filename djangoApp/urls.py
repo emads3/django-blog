@@ -3,14 +3,17 @@ from djangoApp import views
 
 urlpatterns = [
 		# path('index/',views.adminPanel),
-		path('admin/',views.admin),
+		path('admin/',views.admin,name='admin'),
 		# path('home/', views.home),
 		path('homepage/', views.home , name='homepage'),
 		path('showpost/<num>/',views.showpost,name='showpost'),
 
   #------------------------------------------------------------------------------------------------------------
-		#categories urls
+		#categories url
 		path('categorypage/<name>',views.category,name='categorypage'),
+
+		#tags url
+		path('tagpage/<name>',views.tagpage,name='tagpage'),
   #-------------------------------------------------------------------------------------------------------------
         #posts url
 
@@ -18,6 +21,7 @@ urlpatterns = [
 		path('addpost/', views.addpost , name='addpost'), 
 		path('deletepost/<num>', views.deletepost , name='deletepost'),
 		path('editpost/<num>',views.edit_post,name='editpost'),
+		path('showpost/<postid>/addcomment',views.addcomment,name='addcomment'),
 	
   #---------------------------------------------------------------------------------------------------------------
 	   #user urls

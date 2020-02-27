@@ -29,10 +29,26 @@ def category(request , name):
 	obj=Categories.objects.get(cat_name = name)			#if the sports category button was pressed
 	catposts = Post.objects.filter(cat = obj)
 	all_categories=Categories.objects.all()
+	all_tags=Tag.objects.all()
 
 	context = { 'catposts':catposts ,
-	            'all_categories' :all_categories}
+	            'all_categories' :all_categories ,
+	             'all_tags':all_tags}
 	return render(request , 'djangoApp/categorypage.html' ,context)
+
+
+def tagpage(request , name):
+	post_tag = Tag.objects.filter(name= name)
+
+	all_posts=Post.objects.filter(id=post_tag)
+
+	all_categories=Categories.objects.all()
+	all_tags=Tag.objects.all()
+
+	context = { 'all_posts':all_posts,
+	            'all_categories' :all_categories ,
+	             'all_tags':all_tags}
+	return render(request , 'djangoApp/tagpage.html' ,context)
 
 #-----------------------------------------------------------------------------------------------------
 
@@ -41,7 +57,8 @@ def category(request , name):
 
 def admin(request):
 	all_categories=Categories.objects.all()
-	context={'all_categories' :all_categories}
+	all_tags=Tag.objects.all()
+	context={'all_categories':all_categories , 'all_tags':all_tags}
 	# latest_post_list = Posts.objects.order_by('-post_date')[:5]
 	# context = {'latest_post_list' : latest_post_list}
 	return render(request,'djangoApp/adminpanel.html/',context)
@@ -58,10 +75,12 @@ def showpost(request,num):		#for when a user wants to see the details of a speci
 	comment = Comments.objects.filter(post_id = num)
 	likes_dislikes = post_likes.objects.filter(post = num)
 	all_categories=Categories.objects.all()
+	all_tags=Tag.objects.all()
 	context = { 'post_obj':post , 
 				'comment':comment ,
 				'likes_dislikes':likes_dislikes,
-				'all_categories' :all_categories }
+				'all_categories' :all_categories ,
+				 'all_tags':all_tags}
 	return render(request,'djangoApp/showpost.html',context)
 
 
@@ -71,8 +90,10 @@ def showpost(request,num):		#for when a user wants to see the details of a speci
 def posts_table(request):
 	all_posts = Post.objects.all()
 	all_categories=Categories.objects.all()
+	all_tags=Tag.objects.all()
 	context = {'all_posts':all_posts,
-	            'all_categories' :all_categories}
+	            'all_categories' :all_categories ,
+	            'all_tags':all_tags}
 	return render(request,'djangoApp/posts_table.html/',context)
 
 def addpost(request):
@@ -112,8 +133,10 @@ def deletepost(request,num):
 def users_table(request):
 	all_users= User.objects.all()
 	all_categories=Categories.objects.all()
+	all_tags=Tag.objects.all()
 	context = {'all_users':all_users,
-	             'all_categories' :all_categories}
+	             'all_categories' :all_categories ,
+	             'all_tags':all_tags}
 	return render(request,'djangoApp/users_table.html/',context)
 
 
@@ -159,8 +182,9 @@ def deleteuser(request,num):
 # #categories
 
 def categories_table(request):
-	all_categories= Categories.objects.all()  #categories!!
-	context = {'all_categories':all_categories }
+	all_categories= Categories.objects.all()
+	all_tags=Tag.objects.all()
+	context = {'all_categories':all_categories , 'all_tags':all_tags}
 	return render(request,'djangoApp/categories_table.html/',context)  
 
 def addcategory(request):
@@ -240,7 +264,8 @@ def edittag(request,num):
 def forbiden_words_table(request):
 	#all_forbbidden_words= Forbidden_Words.objects.all()
 	all_categories=Categories.objects.all()
-	context = {'all_categories' :all_categories}
+	all_tags=Tag.objects.all()
+	context = {'all_categories' :all_categories , 'all_tags':all_tags}
 	return render(request,'djangoApp/forbiden_words_table.html/' , context) 
 
 
@@ -259,6 +284,16 @@ def forbiden_words_table(request):
 # # 	obj =  Forbidden_Words.objects.get(id = num)
 # # 	obj.delete()
 # # 	return HttpResponseRedirect('#')   #path of deleteforbbiddenWord.html
+
+
+def addcomment(request,postid):
+	if request.method=='POST':
+		post_get = get_object_or_404(Post,pk = postid)
+		user_get = request.user
+		con = request.POST.get('comment')
+		obj = Comments(comment_text = con , post = post_get , user = user_get)
+		obj.save()
+		return HttpResponseRedirect('/app/showpost/'+str(postid))
 
 
 

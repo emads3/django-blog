@@ -8,7 +8,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>categoriesTable</title>
+        <title>Posts_Table</title>
         <link href="{% static 'css/styles.css' %}" rel="stylesheet" />
         <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js" crossorigin="anonymous"></script>
@@ -44,21 +44,20 @@
                     <div class="sb-sidenav-menu">
                         <div class="nav">
                             <div class="sb-sidenav-menu-heading">Core</div>
+                            
+                              <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
 
-                              <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages"
-                                ><div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
+                                <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
                                  Manage Blog
-                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div
-                            ></a>
-                            <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
-                                <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                                </a>
 
+                               <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
                                     <!--show all posts in table -->
                                     <a class="nav-link" href="{% url 'posts_table' %}">all posts</a>
-
                                      <!--show forbiddden words in table -->
                                      <a class="nav-link" href="{% url 'forbiden_words_table' %}">forbidden words</a>
-
                                     <!-- users -->
                                     <!--show all users in table -->
                                      <a class="nav-link" href="{% url 'users_table' %}">users</a>
@@ -66,15 +65,11 @@
                                     <!-- categories -->
                                     <!--show all categories  in table -->
                                     <a class="nav-link" href="{% url 'categories_table' %}">categories </a>
-                                    <a class="nav-link" href="{% url 'tag_table' %}">Tags </a>
-
                                 </nav>
                                 </div>
-                                   <a class="nav-link" href="{% url 'homepage' %}">homepage </a>
+                                 <a class="nav-link" href="{% url 'homepage' %}">homepage </a>
 
-                                   <div>
-                                  <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsecategories" aria-expanded="false" aria-controls="collapsecategories">
-
+                                   <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsecategories" aria-expanded="false" aria-controls="collapsecategories">
 
                                  <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
                                  categories
@@ -83,33 +78,25 @@
                                 <div class="collapse" id="collapsecategories" aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav accordion" id="collapsecategories">
 
-                                    {% for category in all_categories %}
-                                 <a class="nav-link" href="{% url 'categorypage' category.cat_name %}" >{{category.cat_name }} </a>
+                                    {% for post in all_posts %}
+                                      <center><a href="{% url 'showpost' post.id %}"> {{ post.post_title}} </a></center>
+                                        <center>
+                                            <a href="{% url 'showpost' post.id %}"> 
+                                            <img src="{{ post.post_image.url }}" width="450px" height="350px">
+                                            </a>
+                                        </center>
+                                        <br>
+                                        <!-- <p class="lead">{{ post.post_text }}</p>                                 -->
+                                        <center><p class="lead">{{ post.post_date }}</p></center>
+                                       <!--  <a href="likes" class="btn btn-primary btn-sm">Like</a>
+                                        <a href="" class="btn btn-primary btn-sm">Dislike</a>
+                                        <span class="badge badge-success float-right">Dislikes</span>
+                                        <span class="badge badge-success float-right">Likes</span> -->
+                                        <hr>
                                     {% endfor %}
                                    
-                                </nav>
-                                </div>
+                                   </nav>
 
-
-                                <div>
-                                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target=
-                                "#collapsetags" aria-expanded="false" aria-controls="collapsetags">
-
-                                 <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
-                                 Tags
-                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                                </a>
-                                <div class="collapse" id="collapsetags" aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
-                                <nav class="sb-sidenav-menu-nested nav accordion" id="collapsetags">
-
-                                    {% for tag in all_tags %}
-                                      <a class="nav-link" href="{% url 'categorypage' tag.name %}" >{{tag.name }} </a>
-                                    {% endfor %}
-                                   
-                                </nav>
-                            </div>
-                           
-                       
                     </div>
                     <div class="sb-sidenav-footer">
                         <div class="small">Logged in as:</div>
@@ -122,52 +109,28 @@
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid">
-                        <h1 class="mt-4">Categories Table</h1>
-                        <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item"><a href="/index">ManageBlog</a></li>
-                            <li class="breadcrumb-item active">Tables</li>
-                        </ol>
-<!-- 
-                        <div class="card mb-4">
-                            <div class="card-body">DataTables is a third party plugin that is used to generate the demo table below. For more information about DataTables, please visit the <a target="_blank" href="https://datatables.net/">official DataTables documentation</a>.</div>
-                        </div> -->
+                     <h1 class="text-center mb-3">Post</h1>    
+                            
+                                {% for post in catposts %}
 
-                        <div class="card mb-4">
-                            <div class="card-header"><i class="fas fa-table mr-1"></i>All Categories</div>
-                            <div class="card-body">
-                                <div class="table-responsive">
-                                    <h1><a href="{% url 'addcategory' %}">AddCategory</a></h1>
-                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                        <thead>
-                                            <tr>
-                                                <th>CategoryId</th>
-                                                <th>CategoryName</th>
-                                                <th>EditCategory</th>
-                                                <th>Delete_category</th>
+                                       <center><a href="{% url 'showpost' post.id %}"> {{ post.post_title}} </a></center>
+                                        <center>
+                                            <a href="{% url 'showpost' post.id %}"> 
+                                            <img src="{{ post.post_image.url }}" width="450px" height="350px">
+                                            </a>
+                                        </center>
+                                        <br>
+                                        <center><p class="lead">{{ post.post_date }}</p></center>
+                                   
+                                        <hr>
 
-                                            </tr>
-                                        </thead>
-                                    
-                                        <tbody>
-
-                                            {% for category in all_categories %}
-                                            <tr>
-                                            <td>{{category.id}}</td>
-                                            <td>{{category.cat_name}}</td>
- 
-                                            <td><a href="{% url 'editcategory' category.id %}">Edit_Category</a></td>
-                                            <td><a href="{% url 'deletecategory' category.id %}">Delete_category</a></td>
-                                            </tr>
-                                            {% endfor%}
-                                            
-                                        </tbody>
-
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
+                                {% endfor %}
+                           
                     </div>
                 </main>
+
+
+
                 <footer class="py-4 bg-light mt-auto">
                     <div class="container-fluid">
                         <div class="d-flex align-items-center justify-content-between small">
