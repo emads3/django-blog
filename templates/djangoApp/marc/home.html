@@ -1,0 +1,21 @@
+{% extends "djangoApp/base.html" %}
+{%block content%}
+<h1><center><a href="{% url 'addpost' %}">Add Post</a></center></h1>
+<h1 class="text-center mb-3">Posts</h1>	
+	{%if latest_post_list%}
+		{%for post in latest_post_list%}
+				<center><a href="{% url 'showpost' post.id %}">{{ post.post_title }}</a></center>
+				<center><img src="{{ post.post_image.url }}" width="450px" height="350px"></center>
+				<br>
+				<p class="lead">{{ post.post_text }}</p>								
+				<p class="lead">{{ post.post_date }}</p>
+				<a href="likes" class="btn btn-primary btn-sm">Like</a>
+				<a href="" class="btn btn-primary btn-sm">Dislike</a>
+				<span class="badge badge-success float-right">Dislikes</span>
+				<span class="badge badge-success float-right">Likes</span>
+				<hr>
+		{%endfor%}
+	{%else%}
+		<p>No Posts available</p>
+		{% endif %}
+{%endblock%}
