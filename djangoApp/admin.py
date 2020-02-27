@@ -1,8 +1,15 @@
 from django.contrib import admin
-from .models import Posts,Comments,Users,Post_Likes_Dislikes,Categories
 
-admin.site.register(Users)
-admin.site.register(Posts)
+# from .models import Forbidden_Words
+
+from .models import Post,Comments,post_likes,Categories,Tag
+
+
+admin.site.register(Post)
 admin.site.register(Comments)
-admin.site.register(Post_Likes_Dislikes)
+admin.site.register(post_likes)
 admin.site.register(Categories)
+
+# Register your models here.
+
+# admin.site.register(Forbidden_Words)
