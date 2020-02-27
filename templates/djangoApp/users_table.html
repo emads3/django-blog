@@ -67,8 +67,25 @@
                                     <!-- categories -->
                                     <!--show all categories  in table -->
                                     <a class="nav-link" href="{% url 'categories_table' %}">categories </a>
+                                    <a class="nav-link" href="{% url 'tag_table' %}">Tags </a>
                                 </nav>
                                 </div>
+                                 <a class="nav-link" href="{% url 'homepage' %}">homepage </a>
+
+                                   <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsecategories" aria-expanded="false" aria-controls="collapsecategories">
+
+                                 <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
+                                 categories
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                                </a>
+                                <div class="collapse" id="collapsecategories" aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav accordion" id="collapsecategories">
+
+                                    {% for category in all_categories %}
+                                    <a class="nav-link" href="{% url 'categorypage' category.cat_name %}" >{{category.cat_name }} </a>
+                                    {% endfor %}
+                                   
+                                   </nav>
 
 
                     </div>
@@ -83,29 +100,31 @@
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid">
-                        <h1 class="mt-4">Posts Table</h1>
+                        <h1 class="mt-4">Users Table</h1>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item"><a href="/index">ManageBlog</a></li>
                             <li class="breadcrumb-item active">Tables</li>
                         </ol>
-<!-- 
-                        <div class="card mb-4">
-                            <div class="card-body">DataTables is a third party plugin that is used to generate the demo table below. For more information about DataTables, please visit the <a target="_blank" href="https://datatables.net/">official DataTables documentation</a>.</div>
-                        </div> -->
 
                         <div class="card mb-4">
                             <div class="card-header"><i class="fas fa-table mr-1"></i>DataTable</div>
                             <div class="card-body">
                                 <div class="table-responsive">
+
+                                    <h1> <a href="{% url 'adduser' %}">Add_User</a> </h1>
+
                                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                         <thead>
                                             <tr>
-                                                <th>PostId</th>
-                                                <th>Title</th>
-                                                <th>PublishDate</th>
-                                                <th>Image</th>
-                                                <th>Content</th>
-                                                <th>Add_user</th>
+                                                <th>UserId</th>
+                                                <th>UserName</th>
+                                                <th>first_name</th>
+                                                <th>last_name</th>
+                                                <th>email</th>
+                                                <th>is_staff </th>
+                                                <th>is_active </th>
+                                                <th>is_superuser</th>
+
                                                 <th>Delete_user</th>
                                                 <th>Edit_user</th> <!--block-->
                                             </tr>
@@ -113,19 +132,22 @@
                                     
                                         <tbody>
 
-                                            {% for category in all_categories %}
-                                            <!-- <tr> -->
-                                            <td>{{post.post_id}}</td>
-                                            <td>{{post.title}}</td>
-                                            <td>{{post.date}}</td>
-                                            <td>{{post.image}}</td>
-                                            <td>{{post.content }}</td> 
-                                            <td><a href="adduser">Add_category</a><td>
-                                            <!-- <td><a href="editpost/{{post.post_id}}">edit</a><td> -->
-                                            <td><a href="deleteuser/{{cat_id}}">Delete_category</a><td>
+                                            {% for user in all_users %}
+                                            <tr>
+                                            
+                                             <th>{{user.id}}</th>
+                                             <th>{{user.username}}</th>
+                                             <th>{{user.first_name}}</th>
+                                             <th>{{user.last_name}}</th>
+                                             <th>{{user.email}}</th>
+                                             <th>{{user.is_staff}} </th>
+                                             <th>{{user.is_active}} </th>
+                                             <th>{{user.is_superuser}}</th>
 
-                                             <td><a href="edituser/{{cat_id}}">Delete_category</a><td>
-                                            <!-- </tr> -->
+                                            <td><a href="{% url 'deleteuser' user.id %}">Delete_User</a></td>
+
+                                             <td><a href="{% url 'edituser' user.id %}">Edit_User</a></td>
+                                            </tr>
                                             {% endfor%}
                                             
                                         </tbody>

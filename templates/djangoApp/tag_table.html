@@ -8,7 +8,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Posts_Table</title>
+        <title>tags_Table</title>
         <link href="{% static 'css/styles.css' %}" rel="stylesheet" />
         <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js" crossorigin="anonymous"></script>
@@ -44,23 +44,17 @@
                     <div class="sb-sidenav-menu">
                         <div class="nav">
                             <div class="sb-sidenav-menu-heading">Core</div>
-
-
                               <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages"
                                 ><div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
                                  Manage Blog
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div
                             ></a>
-
-                            <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
+                               <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
-
                                     <!--show all posts in table -->
                                     <a class="nav-link" href="{% url 'posts_table' %}">all posts</a>
-
                                      <!--show forbiddden words in table -->
                                      <a class="nav-link" href="{% url 'forbiden_words_table' %}">forbidden words</a>
-
                                     <!-- users -->
                                     <!--show all users in table -->
                                      <a class="nav-link" href="{% url 'users_table' %}">users</a>
@@ -68,14 +62,12 @@
                                     <!-- categories -->
                                     <!--show all categories  in table -->
                                     <a class="nav-link" href="{% url 'categories_table' %}">categories </a>
-                                   <a class="nav-link" href="{% url 'tag_table' %}">Tags </a>
-
+                                    <a class="nav-link" href="{% url 'tag_table' %}">Tags </a>
                                 </nav>
-                            </div>
+                                </div>
+                                 <a class="nav-link" href="{% url 'homepage' %}">homepage </a>
 
-                             <a class="nav-link" href="{% url 'homepage' %}">homepage </a>
-
-                                  <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsecategories" aria-expanded="false" aria-controls="collapsecategories">
+                                   <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsecategories" aria-expanded="false" aria-controls="collapsecategories">
 
                                  <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
                                  categories
@@ -89,7 +81,7 @@
                                     {% endfor %}
                                    
                                    </nav>
-                        </div>
+                    </div>
                     <div class="sb-sidenav-footer">
                         <div class="small">Logged in as:</div>
                         Admin-user
@@ -101,7 +93,7 @@
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid">
-                        <h1 class="mt-4">Posts Table</h1>
+                        <h1 class="mt-4">Tags Table</h1>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item"><a href="/index">ManageBlog</a></li>
                             <li class="breadcrumb-item active">Tables</li>
@@ -112,31 +104,35 @@
                         </div> -->
 
                         <div class="card mb-4">
-                            <div class="card-header"><i class="fas fa-table mr-1"></i>DataTable</div>
+                            <div class="card-header"><i class="fas fa-table mr-1"></i>All posts</div>
                             <div class="card-body">
                                 <div class="table-responsive">
+
+                                    <h1><a href="{% url 'addtag' %}">AddTag</a></h1>
                                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                         <thead>
                                             <tr>
-                                                <th>Word_Id</th>
-                                                <th>Word</th>
-                                                <th>Add_Word</th>
-                                                <th>Delete</th>
-                                                <!-- <th>Edit</th> -->
+                                                <th>TagId</th>
+                                                <th>TagName</th>
+                                                <!-- <th>PostTitle</th> -->
+                                                
+                                                <th>EditTag</th>
+                                                <th>DeleteTag</th>
+                                                
                                             </tr>
                                         </thead>
                                     
                                         <tbody>
-
-                                            {% for word in forbidden_words %}
-                                            <!-- <tr> -->
-                                            <td>{{word.word_id}}</td>
-                                            <td>{{word.word}}</td>
-                                            <td><a href="forbiden_words_table">addforbbiddenWord</a><td>
-                                            <td><a href="deleteforbbiddenWord/{{word.word_id}}">deleteforbbiddenWord</a><td>
-                                            <!-- <td><a href="editword/{s{word.word_id}}">edit</a><td> -->
-                                            <!-- </tr> -->
-                                            {% endfor%}
+                                            {% for tag in all_tags %}
+                                            <tr>
+                                            <td>{{tag.id}}</td>
+                                            <td>{{tag.name}}</td>
+                                            <!-- <td>{{tag.Post.post_tag }}</td> -->
+                                            
+                                            <td><a href="{% url 'edittag' tag.id %}"> EditTag</a></td>
+                                            <td><a href="{% url 'deletetag' tag.id %}"> DeleteTag </a></td>
+                                            </tr>
+                                            {% endfor %}
                                             
                                         </tbody>
 

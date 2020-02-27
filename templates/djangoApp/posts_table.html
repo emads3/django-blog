@@ -44,15 +44,6 @@
                     <div class="sb-sidenav-menu">
                         <div class="nav">
                             <div class="sb-sidenav-menu-heading">Core</div>
-
-                            <!-- <a class="nav-link" href="index.html"
-                                ><div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                                ​ Manage Blog</a> -->
-
-
-
-
-
                               <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages"
                                 ><div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
                                  Manage Blog
@@ -60,13 +51,10 @@
                             ></a>
                                <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
-
                                     <!--show all posts in table -->
                                     <a class="nav-link" href="{% url 'posts_table' %}">all posts</a>
-
                                      <!--show forbiddden words in table -->
                                      <a class="nav-link" href="{% url 'forbiden_words_table' %}">forbidden words</a>
-
                                     <!-- users -->
                                     <!--show all users in table -->
                                      <a class="nav-link" href="{% url 'users_table' %}">users</a>
@@ -74,9 +62,28 @@
                                     <!-- categories -->
                                     <!--show all categories  in table -->
                                     <a class="nav-link" href="{% url 'categories_table' %}">categories </a>
+
+                                    <!-- tags -->
+                                    <a class="nav-link" href="{% url 'tag_table' %}">Tags </a>
+
                                 </nav>
                                 </div>
+                                   <a class="nav-link" href="{% url 'homepage' %}">homepage </a>
 
+                                  <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsecategories" aria-expanded="false" aria-controls="collapsecategories">
+
+                                 <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
+                                 categories
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                                </a>
+                                <div class="collapse" id="collapsecategories" aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav accordion" id="collapsecategories">
+
+                                    {% for category in all_categories %}
+                            <a class="nav-link" href="{% url 'categorypage' category.cat_name %}" >{{category.cat_name }} </a>
+                                    {% endfor %}
+                                   
+                                   </nav>
                     </div>
                     <div class="sb-sidenav-footer">
                         <div class="small">Logged in as:</div>
@@ -100,37 +107,41 @@
                         </div> -->
 
                         <div class="card mb-4">
-                            <div class="card-header"><i class="fas fa-table mr-1"></i>DataTable</div>
+                            <div class="card-header"><i class="fas fa-table mr-1"></i>All posts</div>
                             <div class="card-body">
                                 <div class="table-responsive">
+
+                                    <h1><a href="{% url 'addpost' %}">addPost</a></h1>
                                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                         <thead>
                                             <tr>
                                                 <th>PostId</th>
                                                 <th>Title</th>
-                                                <th>PublishDate</th>
                                                 <th>Image</th>
                                                 <th>Content</th>
-                                                <th>AddPost</th>
-                                                <th>Delete</th>
-                                                <!-- <th>Edit</th> -->
+                                                <th>PublishDate</th>
+                                                <th>categoryName</th>
+                                                <th>userId</th>
+                                                <th>EditPost</th>
+                                                <th>DeletePost</th>
+                                                
                                             </tr>
                                         </thead>
                                     
                                         <tbody>
-
-                                            {% for post in all_posts  %}
-                                            <!-- <tr> -->
-                                            <td>{{post.post_id}}</td>
-                                            <td>{{post.title}}</td>
-                                            <td>{{post.date}}</td>
-                                            <td>{{post.image}}</td>
-                                            <td>{{post.content }}</td> 
-                                            <td><a href="addpost">addPost</a><td>
-                                            <td><a href="editpost/{{post.post_id}}">edit</a><td>
-                                            <td><a href="deletepost/{{post.post_id}}">deletestudent</a><td>
-                                            <!-- </tr> -->
-                                            {% endfor%}
+                                            {% for post in all_posts %}
+                                            <tr>
+                                            <td>{{post.id}}</td>
+                                            <td>{{post.post_title}}</td>
+                                            <td><img src="{{post.post_image.url}}"></td>
+                                            <td>{{post.post_text }}</td>
+                                            <td>{{post.post_date}}</td> 
+                                            <td>{{post.cat}}</td> 
+                                            <td>{{post.user_id}}</td> 
+                                            <td><a href="{% url 'editpost' post.id %}"> editpost </a></td>
+                                            <td><a href="{% url 'deletepost' post.id %}"> deletepost </a></td>
+                                            </tr>
+                                            {% endfor %}
                                             
                                         </tbody>
 

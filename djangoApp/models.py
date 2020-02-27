@@ -1,42 +1,48 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils import timezone
 
-
-class User(User):
-# 	# user_name = models.CharField(max_length = 100)
-# 	# user_email = models.CharField(max_length = 100)
-# 	# user_pass = models.CharField(max_length = 100)
+class Categories(models.Model):
+	cat_name = models.CharField(max_length=200)
 
 	def __str__(self):
-		return self.username
+		return self.cat_name
 
 
 class Post(models.Model):
-	post_id=models.AutoField(primary_key=True)
-	title=models.CharField(max_length=200)
-	date=models.DateTimeField()
-	image = models.ImageField(upload_to ='Images/')
-	content = models.TextField()
+	post_title = models.CharField(max_length = 100)
+	post_image = models.ImageField(upload_to='Posts/')
+	post_text = models.CharField(max_length = 900 , null = True)
+	post_date = models.DateTimeField(default = timezone.now())
+	cat = models.ForeignKey(Categories , on_delete = models.DO_NOTHING)
+	user_id = models.ForeignKey(User , on_delete = models.DO_NOTHING)
+
+	def __str__(self):
+		return self.post_title
+
+class Comments(models.Model):
+	comment_text = models.CharField(max_length = 400)
+	date = models.DateTimeField(default = timezone.now())
+	post = models.ForeignKey(Post , on_delete = models.DO_NOTHING)
+	user = models.ForeignKey(User , on_delete = models.DO_NOTHING)
+	
+	def __str__(self):
+		return self.comment_text
 	
 	
-# class post_likes(models.Model):
-# 	post_id=models.ForeignKey(Post, on_delete=models.CASCADE)
-# 	user_id=models.ForeignKey(UserModel, on_delete=models.CASCADE)
-# 	like=models.BooleanField(default=False)
+class post_likes(models.Model):
+	post = models.ForeignKey(Post , on_delete = models.DO_NOTHING)
+	user = models.ForeignKey(User , on_delete = models.DO_NOTHING)
+	likes = models.IntegerField(default = 0)
+	dislikes = models.IntegerField(default = 0)
 
-# class Tag(models.Model):
-# 	tag_id=models.AutoField(primary_key=True)
-# 	name=models.CharField(max_length=200)
-# 	post_id=models.ForeignKey(Post, on_delete=models.CASCADE)
-# 	cat_id=models.ForeignKey(Categories, on_delete=models.CASCADE)
-
-class Forbidden_Words(models.Model):
-	word_id=models.AutoField(primary_key=True)
-	word=models.CharField(max_length=200)
+class Tag(models.Model):
+	name = models.CharField(max_length=200)
+	post_tag = models.ManyToManyField(Post)
 
 
-# class Categories(models.Model):
-#     cat_id = models.AutoField(primary_key=True)
-#     name = name = models.CharField(max_length=200)
+
+
+
 
 
