@@ -56,6 +56,11 @@ class Forbidden_Words(models.Model):
 	forbidden_word = models.CharField(max_length=100)
 
 
+class PostRate(models.Model):
+	user = models.ForeignKey(Users, on_delete=models.CASCADE)
+	post = models.ForeignKey(Posts, on_delete=models.CASCADE)
+	rate = models.IntegerField
+
 class Post_Likes_Dislikes(models.Model):
 	post = models.ForeignKey(Posts, on_delete=models.DO_NOTHING)
 	likes = models.IntegerField(default=0)
