@@ -65,8 +65,8 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            os.path.join('authentication/templates'),
-            os.path.join('categories/templates'),
+            # os.path.join('authentication/templates'),
+            # os.path.join('categories/templates'),
             os.path.join(BASE_DIR,'templates'),
             
 

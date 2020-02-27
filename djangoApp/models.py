@@ -4,6 +4,7 @@ from django.utils import timezone
 
 class Categories(models.Model):
 	cat_name = models.CharField(max_length=200)
+	cat_id = models.AutoField(primary_key=True)
 
 	def __str__(self):
 		return self.cat_name
@@ -41,8 +42,9 @@ class Tag(models.Model):
 	post_tag = models.ManyToManyField(Post)
 
 
-
-
-
+class subscribe(models.Model):
+	cat_id = models.name = models.ForeignKey(Categories, on_delete=models.DO_NOTHING)
+	user_id = models.name = models.ForeignKey(User, on_delete=models.DO_NOTHING)
+	
 
 

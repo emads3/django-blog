@@ -7,7 +7,7 @@ from django.contrib.auth import authenticate, login
 # Create your views here.
 def home(request):
     # count = User.objects.count()
-    return render(request, 'home.html')
+    return render(request, 'djangoApp/adminpanel.html')
 
 def register(request):
     if request.method == 'POST':
@@ -17,7 +17,7 @@ def register(request):
             return redirect('home')
     else:
         form = Register()
-    return render(request, 'registration/register.html',{
+    return render(request, 'authentication/registration/register.html',{
         'form':form
     })
 

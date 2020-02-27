@@ -33,7 +33,6 @@ def category(request , name):
 	context = { 'catposts':catposts ,
 	            'all_categories' :all_categories}
 	return render(request , 'djangoApp/categorypage.html' ,context)
-
 #-----------------------------------------------------------------------------------------------------
 
 #admin panel
@@ -160,8 +159,45 @@ def deleteuser(request,num):
 
 def categories_table(request):
 	all_categories= Categories.objects.all()  #categories!!
+	subs = subscribe.objects.filter(user_id = request.user).values_list('cat_id',flat=True)
+	lst=[]
+	# for cat in ca
 	context = {'all_categories':all_categories }
 	return render(request,'djangoApp/categories_table.html/',context)  
+
+#-------------------------------------------------------------------------------
+#subscribe
+
+def subscribes(request, cat_id):
+	print("ok")
+	try:
+		cat = category.objects.get(id = cat_id)
+		subscribe.objects.create(user_id = request.user, cat_id = cat)
+	finally:
+		return HttpResponseRedirect('djangoApp/categories_table.html')
+
+#------------------------------------------------------------------------
+#unsubscribe
+
+def unsubscribe(request, cat_id):
+	# print("ok")
+	try:
+		cat = category.objects.get(id = cat_id)
+		sub = subscribe.objects.get(user_id = request.user, cat_id = cat)
+		sub.delete()
+	finally:
+		return HttpResponseRedirect('djangoApp/categories_table.html')
+
+# def unsubscribe(request,cat_id):
+#     try:
+# 		cat = category.objects.get(id = cat_id)
+# 		sub = subscribe.objects.get(user_id = request.user, cat_id = cat)
+# 		sub.delete()
+# 	finally:
+# 		return HttpResponseRedirect('djangoApp/categories_table.html')
+
+    
+#-------------------------------------------------------------------------
 
 def addcategory(request):
 	category_form=CategoryForm()

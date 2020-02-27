@@ -3,7 +3,7 @@ from djangoApp import views
 
 urlpatterns = [
 		# path('index/',views.adminPanel),
-		path('admin/',views.admin),
+		path('admin/',views.admin ,name='admin'),
 		# path('home/', views.home),
 		path('homepage/', views.home , name='homepage'),
 		path('showpost/<num>/',views.showpost,name='showpost'),
@@ -50,6 +50,11 @@ urlpatterns = [
 
 		# path('register/',views.register),
 		# path('login/',views.login),
+#---------------------------------------------------------
+	#subscribes
+	path('sub/<cat_id>', views.subscribes, name ='subscribes'),
+	path('unsub/<cat_id>', views.unsubscribe, name ='unsubscribe'),
+
 
 	]
 		
