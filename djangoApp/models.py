@@ -45,11 +45,9 @@ class post_likes(models.Model):
 	dislikes = models.IntegerField(default = 0)
 
 
+class Forbidden_Words(models.Model):
+	word=models.CharField(max_length=200)
 
-# class Reply(models.Model):
-# 	reply_text = models.CharField(max_length = 900)
-# 	comment = models.ForeignKey(Comments , on_delete = models.DO_NOTHING)
-# 	user = models.ForeignKey(User ,on_delete=models.DO_NOTHING)
 
 
 

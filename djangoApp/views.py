@@ -1,9 +1,9 @@
 
 from django.shortcuts import render, redirect , get_object_or_404
-from djangoApp.models import Categories,Post,Comments,Tags,post_likes
+from djangoApp.models import Categories,Post,Comments,Tags,post_likes , Forbidden_Words
 from django.http import HttpResponse,HttpResponseRedirect
 from django.contrib.auth.models import User
-from djangoApp.form import PostForm , CategoryForm , TagForm , UserForm
+from djangoApp.form import PostForm , CategoryForm , TagForm , UserForm , ForbiddenForm
 # from profanity_filter import ProfanityFilter
 
 
@@ -138,6 +138,25 @@ def addcomment(request,postid):
 		obj = Comments(comment_text = con , post = post_get , user = user_get)
 		obj.save()
 		return HttpResponseRedirect('/app/showpost/'+str(postid))
+
+
+# def addcomment(request,postid):
+	# comment_reply = True
+	# if request.method=='POST':
+	# 	post = get_object_or_404(Post,pk = postid)
+	# 	user = request.user
+		# comment_written = request.POST.get('comment')
+		# print(comment_written)
+		# reply_written = request.POST.get('reply')
+		# replyCount = reply_written.Count()
+		# comment = Comments.objects.get(id=reply_written)
+		# if replyCount < 1:
+		# obj = Comments(comment_text = comment_written , post = post, user= user, reply=reply_written)
+		# obj.save()
+		# else:
+		# 	obj = Comments(comment_text = comment_written , post= post, user = user)
+		# 	obj.save()
+		# return HttpResponseRedirect('djangoApp/details/'+str(postid))
    #------------------------------------------------------------------
 
 #Users
@@ -268,28 +287,45 @@ def edittag(request,num):
 # forbbidden_words
 
 def forbiden_words_table(request):
-	#all_forbbidden_words= Forbidden_Words.objects.all()
+	all_forbbidden_words= Forbidden_Words.objects.all()
 	all_categories=Categories.objects.all()
 	all_tags=Tags.objects.all()
-	context = {'all_categories' :all_categories , 'all_tags':all_tags}
+	context = {'all_categories' :all_categories , 'all_tags':all_tags , 
+	            'all_forbbidden_words':all_forbbidden_words}
 	return render(request,'djangoApp/forbiden_words_table.html/' , context) 
 
 
-# def addforbbiddenword(request):
-# 	forbbiddenWords_form=ForbiddenForm()
-# 	if request.method == "POST":
-# 		forbbiddenWords_form=ForbiddenForm(request.POST)
-# 		if forbbiddenWords_form.is_valid():
-# 			forbbiddenWords_form.save()
-# 			# return HttpResponseRedirect('#')  #path of addforbbiddenWord.html
-# 	else:
-# 		context={'forbbiddenWords_Form':forbbiddenWords_form}
-# 		return render(request,'djangoApp/addforbiddenword.html/',context)  #path of addforbbiddenWord.html
+def addforbbiddenword(request):
+	forbbiddenWords_form=ForbiddenForm()
+	if request.method == "POST":
+		forbbiddenWords_form=ForbiddenForm(request.POST)
+		if forbbiddenWords_form.is_valid():
+			forbbiddenWords_form.save()
+			return HttpResponseRedirect('/app/forbiden_words_table')  #path of addforbbiddenWord.html
+	else:
+		context={'forbbiddenWords_form':forbbiddenWords_form}
+		return render(request,'djangoApp/addword.html/',context)  #path of addforbbiddenWord.html
 
-# # def deleteforbbiddenWord(request,num):
-# # 	obj =  Forbidden_Words.objects.get(id = num)
-# # 	obj.delete()
-# # 	return HttpResponseRedirect('#')   #path of deleteforbbiddenWord.html
+def deleteforbbiddenWord(request,num):
+	obj =  Forbidden_Words.objects.get(id = num)
+	obj.delete()
+	return HttpResponseRedirect('/app/forbiden_words_table')   #path of deleteforbbiddenWord.html
+
+
+
+def editforbbiddenword(request , num):
+	word=get_object_or_404(Forbidden_Words,id=num)
+	forbbiddenWords_form=ForbiddenForm(instance=post)
+	if request.method=='POST':
+		forbbiddenWords_form=ForbiddenForm(request.POST ,request.FILES, instance=post )
+		if forbbiddenWords_form.is_valid():
+			forbbiddenWords_form.save()
+			return HttpResponseRedirect('/app/forbiden_words_table/')
+	else:
+		forbbiddenWords_form=ForbiddenForm(instance=post)
+		context={'forbbiddenWords_form':forbbiddenWords_form}
+		return render(request,'djangoApp/addword.html/',context)
+
 
 
 

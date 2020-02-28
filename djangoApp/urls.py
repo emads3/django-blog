@@ -54,6 +54,9 @@ urlpatterns = [
 
         #hnmsa7hom dol el forbidden key
 		path('forbiden_words_table/',views.forbiden_words_table,name='forbiden_words_table'),
+		path('addword/', views.addforbbiddenword, name='addword'), 
+		path('deleteword/<num>', views.deleteforbbiddenWord , name='deleteword'),
+		path('editword/<num>',views.editforbbiddenword,name='editword'),
 		# path('addforbbiddenword/', views.addforbbiddenword , name='addforbbiddenword'),  #form to add  forbidden word
 		# path('deleteforbbiddenWord/<num>', views.deleteforbbiddenWord),  #mogarad query fel database
 

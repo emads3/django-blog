@@ -1,7 +1,6 @@
 {% extends "djangoApp/adminbase.html" %}
 {% block main %}
-
-                           <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages"
+<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages"
                                 ><div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
                                  Manage Blog
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div
@@ -40,8 +39,23 @@
                                 <nav class="sb-sidenav-menu-nested nav accordion" id="collapsecategories">
 
                                     {% for category in all_categories %}
-                                 <a class="nav-link" href="{% url 'categorypage' category.cat_name %}" >{{category.cat_name }} </a>
-                                    {% endfor %}
+                                 <li><a class="nav-link" href="{% url 'categorypage' category.cat_name %}" >{{category.cat_name }} </a>
+
+                                 <form method="POST" action="/app/home/{{category.id}}">
+
+                                {% csrf_token %}
+                                {% if category in sub_cat %}
+                                  <input type="hidden" name="subscribe" value="0">
+                                   <button class="btn btn-danger text-white ml-sm-5">Unsubscribe</button>
+                                {% else %}
+                                    <input type="hidden" name="subscribe" value="1">
+                                    <button class="btn btn-danger text-white ml-sm-5">Subscribe</button>
+                                 {% endif %}
+
+                              </form>
+                          </li>
+
+                                {% endfor %}
                                    
                                 </nav>
                                 </div>
@@ -67,7 +81,6 @@
                             </div>
 
 
-                               </div>
                     <div class="sb-sidenav-footer">
                         <div class="small">Logged in as:</div>
                         Admin-user

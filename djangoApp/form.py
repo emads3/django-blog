@@ -1,5 +1,5 @@
 from django import forms
-from djangoApp.models import  Post ,  Categories , Tags
+from djangoApp.models import  Post ,  Categories , Tags , Forbidden_Words
 from django.contrib.auth.models import User
 
 class PostForm(forms.ModelForm):
@@ -31,3 +31,11 @@ class UserForm(forms.ModelForm):
 		if password and password2 and password != password2:
 			raise forms.ValidationError('passwords do not match')
 		return password2
+
+
+class ForbiddenForm(forms.ModelForm):
+	class Meta:
+		model=Forbidden_Words
+		fields=('id','word')
+		
+			
