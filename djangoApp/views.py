@@ -1,6 +1,6 @@
 
 from django.shortcuts import render, redirect , get_object_or_404
-from djangoApp.models import Categories,Post,Comments,Tags,post_likes , Forbidden_Words
+from djangoApp.models import Categories,Post,Comments,Tags,post_likes , Forbidden_Words, PostRates
 from django.http import HttpResponse,HttpResponseRedirect
 from django.contrib.auth.models import User
 from djangoApp.form import PostForm , CategoryForm , TagForm , UserForm , ForbiddenForm
@@ -71,21 +71,65 @@ def home(request):
 	return render(request,'djangoApp/homepage.html',context)
 
 
+# def showpost(request,num):		#for when a user wants to see the details of a specific post
+# 	post = Post.objects.get(id = num)
+# 	comment = Comments.objects.filter(post_id = num)
+# 	# comment=ProfanityFilter()
+# 	# comment.censor(commentf.comment_text)
+#
+# 	likes_dislikes = post_likes.objects.filter(post = num)
+# 	all_categories=Categories.objects.all()
+# 	all_tags=Tags.objects.all()
+# 	context = { 'post_obj':post ,
+# 				'comment':comment ,
+# 				'likes_dislikes':likes_dislikes,
+# 				'all_categories' :all_categories ,
+# 				 'all_tags':all_tags}
+# 	return render(request,'djangoApp/showpost.html',context)
+
 def showpost(request,num):		#for when a user wants to see the details of a specific post
 	post = Post.objects.get(id = num)
 	comment = Comments.objects.filter(post_id = num)
 	# comment=ProfanityFilter()
 	# comment.censor(commentf.comment_text)
 
-	likes_dislikes = post_likes.objects.filter(post = num)
+	# likes_dislikes = post_likes.objects.filter(post = num)
+
+	like_ = PostRates.objects.filter(post_id=num)
+	post_likes= like_.filter(rate=True).count()
+	post_dislikes= like_.filter(rate=False).count()
+
 	all_categories=Categories.objects.all()
 	all_tags=Tags.objects.all()
-	context = { 'post_obj':post , 
-				'comment':comment ,
-				'likes_dislikes':likes_dislikes,
-				'all_categories' :all_categories ,
-				 'all_tags':all_tags}
+
+	context = { 'post_obj':post ,
+	            'comment':comment ,
+	            # 'likes_dislikes':likes_dislikes,
+	            'all_categories' :all_categories ,
+	            'all_tags':all_tags,
+	            'likes': post_likes,
+	            'dislikes': post_dislikes}
+
 	return render(request,'djangoApp/showpost.html',context)
+
+def like(request, num):
+	if not PostRates.objects.filter(post_id=num, user_id=request.user.id).exists():
+		post = Post.objects.get(id=num)
+
+		if request.POST.get('like') == '1':
+			PostRates.objects.create(post_id=post, user_id=request.user.id, rate=True)
+		else:
+			PostRates.objects.create(post_id=post, user_id=request.user.id, rate=False)
+
+		like_ = PostRates.objects.filter(post_id=post, rate=0)
+
+		if like_.count() >= 10:
+			like_.delete()
+			post.delete()
+
+			return HttpResponseRedirect('djangoApp/homepage.html')
+
+		return HttpResponseRedirect('/app/showpost/' + num)
 
 
   #----------------------------------------------------------------

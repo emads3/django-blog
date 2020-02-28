@@ -160,8 +160,27 @@
                           <p class="lead">{{ comment.reply }}</p>
                          {% endfor %} -->
 
-                        <a href="likes" class="btn btn-primary btn-sm float-left">Like</a>
-                        <a href="" class="btn btn-primary btn-sm float-left">Dislike</a>
+                        {% if user.is_authenticated %}
+                            <form method="post" action="/app/showpost/like/{{ post_obj.id }}">
+                                {% csrf_token %}
+                                {% if is_liked == None %}
+                                    <input type="hidden" name="like" value="0">
+                                    <button type="submit" class="btn btn-outline-danger">{{ dislikes }} Dislike</button>
+                                {% endif %}
+                            </form>
+
+
+                            <form method="post" action="/app/showpost/like/{{ post_obj.id }}">
+                                {% csrf_token %}
+                                {% if is_liked == None %}
+                                    <input type="hidden" name="like" value="1">
+                                    <button type="submit" class="btn btn-outline-danger">{{ likes }} Like</button>
+                                {% endif %}
+                            </form>
+                        {% else %}
+                            {{ likes }} Like
+                            {{ dislikes }} Dislike
+                        {% endif %}
 
                         {% for likes in likes_dislikes %}
                         <span class="badge badge-success float-right">{{ likes.dislikes }} dislikes</span>
