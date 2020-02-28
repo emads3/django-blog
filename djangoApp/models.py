@@ -55,6 +55,9 @@ class Forbidden_Words(models.Model):
 class subscribe(models.Model):
 	cat_id = models.name = models.ForeignKey(Categories, on_delete=models.DO_NOTHING)
 	user_id = models.name = models.ForeignKey(User, on_delete=models.DO_NOTHING)
-	
 
+class PostRates(models.Model):
+	post_id = models.ForeignKey(Post, on_delete = models.CASCADE)
+	user_id = models.ForeignKey(User, on_delete = models.CASCADE)
+	rate = models.IntegerField(null=False)
 
