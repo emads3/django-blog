@@ -12,6 +12,7 @@ urlpatterns = [
 		path('homepage/', views.home , name='homepage'),
 
 		path('showpost/<num>/',views.showpost,name='showpost'),
+		path('showpost/like/<num>',views.like),
 		
 
   #------------------------------------------------------------------------------------------------------------
