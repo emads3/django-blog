@@ -1,8 +1,9 @@
-
 {% extends "djangoApp/adminbase.html" %}
 {% block main %}
 
-                              <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages"
+
+<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages"
+
                                 ><div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
                                  Manage Blog
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div
@@ -24,13 +25,11 @@
                                     <!-- categories -->
                                     <!--show all categories  in table -->
                                     <a class="nav-link" href="{% url 'categories_table' %}">categories </a>
-                                   <a class="nav-link" href="{% url 'tag_table' %}">Tags </a>
-
+                                    <a class="nav-link" href="{% url 'tag_table' %}">Tags </a>
                                 </nav>
-                            </div>
+                                </div>
 
-                             <a class="nav-link" href="{% url 'homepage' %}">homepage </a>
-
+                                 <a class="nav-link" href="{% url 'homepage' %}">homepage </a>
                                   <div>
                                   <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsecategories" aria-expanded="false" aria-controls="collapsecategories">
 
@@ -43,8 +42,23 @@
                                 <nav class="sb-sidenav-menu-nested nav accordion" id="collapsecategories">
 
                                     {% for category in all_categories %}
-                                 <a class="nav-link" href="{% url 'categorypage' category.cat_name %}" >{{category.cat_name }} </a>
-                                    {% endfor %}
+                                 <li><a class="nav-link" href="{% url 'categorypage' category.cat_name %}" >{{category.cat_name }} </a>
+
+                                 <form method="POST" action="/app/home/{{category.id}}">
+
+                                {% csrf_token %}
+                                {% if category in sub_cat %}
+                                  <input type="hidden" name="subscribe" value="0">
+                                   <button class="btn btn-danger text-white ml-sm-5">Unsubscribe</button>
+                                {% else %}
+                                    <input type="hidden" name="subscribe" value="1">
+                                    <button class="btn btn-danger text-white ml-sm-5">Subscribe</button>
+                                 {% endif %}
+
+                              </form>
+                          </li>
+
+                                {% endfor %}
                                    
                                 </nav>
                                 </div>
@@ -62,7 +76,8 @@
                                 <nav class="sb-sidenav-menu-nested nav accordion" id="collapsetags">
 
                                     {% for tag in all_tags %}
-                                      <a class="nav-link" href="#" >{{tag.name }} </a>
+                                      <a class="nav-link" href="{% url 'tagpage' tag.name %}" >
+                                      {{tag.name }} </a>
                                     {% endfor %}
                                    
 <<<<<<< HEAD
@@ -71,7 +86,7 @@
 =======
                                 </nav>
                             </div>
-                        </div>
+
                     <div class="sb-sidenav-footer">
                         <div class="small">Logged in as:</div>
                         Admin-user
@@ -83,7 +98,7 @@
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid">
-                        <h1 class="mt-4">Posts Table</h1>
+                        <h1 class="mt-4">ForbiddenKeyTable</h1>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item"><a href="/index">ManageBlog</a></li>
                             <li class="breadcrumb-item active">Tables</li>
@@ -97,27 +112,29 @@
                             <div class="card-header"><i class="fas fa-table mr-1"></i>DataTable</div>
                             <div class="card-body">
                                 <div class="table-responsive">
+                                    <h1><a href="{% url 'addword' %}">addWord</a></h1>
                                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                         <thead>
-                                            <tr>
+                                            <!-- <tr> -->
                                                 <th>Word_Id</th>
                                                 <th>Word</th>
-                                                <th>Add_Word</th>
+                                                <th>Edit_Word</th>
                                                 <th>Delete</th>
                                                 <!-- <th>Edit</th> -->
-                                            </tr>
+                                            <!-- </tr> -->
                                         </thead>
                                     
                                         <tbody>
 
-                                            {% for word in forbidden_words %}
-                                            <!-- <tr> -->
-                                            <td>{{word.word_id}}</td>
-                                            <td>{{word.word}}</td>
-                                            <td><a href="forbiden_words_table">addforbbiddenWord</a><td>
-                                            <td><a href="deleteforbbiddenWord/{{word.word_id}}">deleteforbbiddenWord</a><td>
+                                            {% for word in all_forbbidden_words %}
+                                            <tr>
+                                                <td>{{word.id}}</td>
+                                                <td>{{word.word}}</td>
+                                                
+                                                <td><a href="{% url 'editword' word.id  %}">EditForbbiddenWord</a><td>
+                                                <td><a href="{%url 'deleteword' word.id %}">deleteforbbiddenWord</a><td>
                                             <!-- <td><a href="editword/{s{word.word_id}}">edit</a><td> -->
-                                            <!-- </tr> -->
+                                            </tr>
                                             {% endfor%}
                                             
                                         </tbody>
@@ -128,19 +145,8 @@
                         </div>
                     </div>
                 </main>
-                <footer class="py-4 bg-light mt-auto">
-                    <div class="container-fluid">
-                        <div class="d-flex align-items-center justify-content-between small">
-                            <div class="text-muted">Copyright &copy; Your Website 2019</div>
-                            <div>
-                                <a href="#">Privacy Policy</a>
-                                &middot;
-                                <a href="#">Terms &amp; Conditions</a>
-                            </div>
-                        </div>
-                    </div>
-                </footer>
             </div>
+<<<<<<< HEAD
         </div>
 
         <script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
@@ -151,4 +157,7 @@
         <script src="{% static 'assets/demo/datatables-demo.js' %}"></script>
     </body>
 </html>
+>>>>>>> manar
+=======
+                {% endblock %}
 >>>>>>> manar

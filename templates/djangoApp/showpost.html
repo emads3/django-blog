@@ -1,18 +1,22 @@
 {% extends "djangoApp/adminbase.html" %}
 {% block main %}
-                              <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
 
-                                <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
+                               <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages"
+                                ><div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
+
                                  Manage Blog
-                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                                </a>
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div
+                            ></a>
 
-                               <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
+                            <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
+
                                     <!--show all posts in table -->
                                     <a class="nav-link" href="{% url 'posts_table' %}">all posts</a>
+
                                      <!--show forbiddden words in table -->
                                      <a class="nav-link" href="{% url 'forbiden_words_table' %}">forbidden words</a>
+
                                     <!-- users -->
                                     <!--show all users in table -->
                                      <a class="nav-link" href="{% url 'users_table' %}">users</a>
@@ -20,10 +24,14 @@
                                     <!-- categories -->
                                     <!--show all categories  in table -->
                                     <a class="nav-link" href="{% url 'categories_table' %}">categories </a>
+                                    <a class="nav-link" href="{% url 'tag_table' %}">Tags </a>
                                 </nav>
                                 </div>
+
                                  <a class="nav-link" href="{% url 'homepage' %}">homepage </a>
-                                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsecategories" aria-expanded="false" aria-controls="collapsecategories">
+                                  <div>
+                                  <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsecategories" aria-expanded="false" aria-controls="collapsecategories">
+
 
                                  <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
                                  categories
@@ -33,15 +41,54 @@
                                 <nav class="sb-sidenav-menu-nested nav accordion" id="collapsecategories">
 
                                     {% for category in all_categories %}
-                            <a class="nav-link" href="{% url 'categorypage' category.cat_name %}" >{{category.cat_name }} </a>
-                                    {% endfor %}
-                                   
-                                   </nav>
+                                 <li><a class="nav-link" href="{% url 'categorypage' category.cat_name %}" >{{category.cat_name }} </a>
 
+                                 <form method="POST" action="/app/home/{{category.id}}">
+
+                                {% csrf_token %}
+                                {% if category in sub_cat %}
+                                  <input type="hidden" name="subscribe" value="0">
+                                   <button class="btn btn-danger text-white ml-sm-5">Unsubscribe</button>
+                                {% else %}
+                                    <input type="hidden" name="subscribe" value="1">
+                                    <button class="btn btn-danger text-white ml-sm-5">Subscribe</button>
+                                 {% endif %}
+
+                              </form>
+                            </li>
+
+                               {% endfor %}
+                                   
+                                </nav>
+                                </div>
+
+
+                                <div>
+                                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target=
+                                "#collapsetags" aria-expanded="false" aria-controls="collapsetags">
+
+                                 <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
+                                 Tags
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                                </a>
+                                <div class="collapse" id="collapsetags" aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav accordion" id="collapsetags">
+
+                                    {% for tag in all_tags %}
+                                      <a class="nav-link" href="{% url 'tagpage' tag.name %}" >
+                                      {{tag.name }} </a>
+                                  {% endfor %}   
+
+                                </nav>
+                            </div>
+
+<<<<<<< HEAD
 <<<<<<< HEAD
                    {% endblock %}
 =======
                     </div>
+=======
+>>>>>>> manar
                     <div class="sb-sidenav-footer">
                         <div class="small">Logged in as:</div>
                         Admin-user
@@ -61,38 +108,75 @@
                         <img src="{{ post_obj.post_image.url }}" width="450px" height="350px">
                         <p class="lead">{{ post_obj.post_text }}</p>
                         <p class="lead">{{ post_obj.post_date }}</p>
-                        <!-- <h4>Comments:</h4> -->
+                       
 
-                        <form method="POST" action="addcomment">
-                            {% csrf_token %}
+                        <form method="POST" action="addcomment">{% csrf_token %}
+
+                            
                             <label for="comment"></label>
-                            <!-- <input type="textarea" name="comment"> -->
-                            <!-- <input type="submit" name="" value="comment"> -->
-                            <textarea name="comment" rows="3" cols="60" placeholder="add comment"></textarea>
-                            <button type="submit" class="btn btn-primary btn-sm">comment</button>
+                            
+                            <textarea rows="3" cols="68" name="comment" placeholder="add comment" class="float-center"></textarea>
+
+                            
+                            <button type="submit" class="btn btn-primary btn-sm float-center">comment</button>
+                            
+                            <br>
+                            <br>
+                            <br>
+
+                            <textarea rows="3" cols="50" name="reply" placeholder="add reply" class="float-center"></textarea>
+                           
+                           
+                            <button type="submit" class="btn btn-primary btn-sm float-center">reply</button>
+                            
+                            <br>
+                            <br>
+                            <br>
+                          </form>
+
+                          {% for comment in comment %}
+                            <p class="lead">{{ comment.comment_text }}</p>
+                          {% endfor %}
+
+
+                          <!-- <form method="POST" action="addcomment">{% csrf_token %} -->
+
+                          <!-- {{ comment_form.as_p }} -->
+                          <!-- <label for="comment"></label> -->
+                          <!-- <textarea rows="3" cols="68" name="comment" placeholder="add comment"></textarea> -->
+                          <!-- <button type="submit">Save</button> -->
+                         <!--  <button type="submit" class="btn btn-primary btn-sm float-right">comment</button>
+                          <br>
+                          <br>
+                          <br> -->
+                         <!--  <textarea rows="3" cols="50" name="reply" placeholder="add reply" class="float-right"></textarea>
+                          <br> -->
+                          <!-- <br>
+                          <br>
+                          <br>
+                          <button type="submit" class="btn btn-primary btn-sm float-right">reply</button>
+                          <br>
+                          <br>
+                          <br>
                         </form>
                         {% for comment in comment %}
-                        <h3 class="lead">{{ comment.comment_text }}</h3>
-                     <!--    <form method="POST" action="addcomment">
-                            {% csrf_token %}
-                            <label for="comment_reply"></label>
-                            <textarea name="comment_reply" rows="3" cols="60" placeholder="add reply"></textarea>
-                            <button type="submit" class="btn btn-primary btn-sm">reply</button>
-                        </form> -->
-                        {% endfor %}
-<!--                         {% for reply in reply %}
-                        <h6 class="lead">{{ reply.reply_text }}</h6>
-                        {% endfor %} -->
+                          <p class="lead">{{ comment.comment_text }}</p>
+                          <p class="lead">{{ comment.reply }}</p>
+                         {% endfor %} -->
+
                         <a href="likes" class="btn btn-primary btn-sm float-left">Like</a>
                         <a href="" class="btn btn-primary btn-sm float-left">Dislike</a>
+
                         {% for likes in likes_dislikes %}
                         <span class="badge badge-success float-right">{{ likes.dislikes }} dislikes</span>
                         <span class="badge badge-success float-right">{{ likes.likes }} likes</span>
                         {% endfor %}
+
                         </center>
                         
                     </div>
                 </main>
+<<<<<<< HEAD
 
 
 
@@ -119,4 +203,8 @@
         <script src="{% static 'assets/demo/datatables-demo.js' %}"></script>
     </body>
 </html>
+>>>>>>> manar
+=======
+            </div>            
+{% endblock %}
 >>>>>>> manar

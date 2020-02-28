@@ -2,17 +2,22 @@ from django.urls import path,include
 from djangoApp import views
 
 urlpatterns = [
+
+		path('searchForPost', views.searchForPost , name='searchForPost'),
 		# path('index/',views.adminPanel),
 
 		path('admin/',views.admin ,name='admin'),
 
 		# path('home/', views.home),
 		path('homepage/', views.home , name='homepage'),
+
 		path('showpost/<num>/',views.showpost,name='showpost'),
+		
 
   #------------------------------------------------------------------------------------------------------------
 		#categories url
 		path('categorypage/<name>',views.category,name='categorypage'),
+		path('home/<num>',views.subscribe),
 
 		#tags url
 		path('tagpage/<name>',views.tagpage,name='tagpage'),
@@ -51,6 +56,9 @@ urlpatterns = [
 
         #hnmsa7hom dol el forbidden key
 		path('forbiden_words_table/',views.forbiden_words_table,name='forbiden_words_table'),
+		path('addword/', views.addforbbiddenword, name='addword'), 
+		path('deleteword/<num>', views.deleteforbbiddenWord , name='deleteword'),
+		path('editword/<num>',views.editforbbiddenword,name='editword'),
 		# path('addforbbiddenword/', views.addforbbiddenword , name='addforbbiddenword'),  #form to add  forbidden word
 		# path('deleteforbbiddenWord/<num>', views.deleteforbbiddenWord),  #mogarad query fel database
 

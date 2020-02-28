@@ -1,17 +1,24 @@
 {% extends "djangoApp/adminbase.html" %}
 {% block main %}
+<<<<<<< HEAD
 
+=======
+>>>>>>> manar
                               <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages"
                                 ><div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
                                  Manage Blog
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div
                             ></a>
-                               <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
+
+                            <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
+
                                     <!--show all posts in table -->
                                     <a class="nav-link" href="{% url 'posts_table' %}">all posts</a>
+
                                      <!--show forbiddden words in table -->
                                      <a class="nav-link" href="{% url 'forbiden_words_table' %}">forbidden words</a>
+
                                     <!-- users -->
                                     <!--show all users in table -->
                                      <a class="nav-link" href="{% url 'users_table' %}">users</a>
@@ -22,8 +29,8 @@
                                     <a class="nav-link" href="{% url 'tag_table' %}">Tags </a>
                                 </nav>
                                 </div>
-                                 <a class="nav-link" href="{% url 'homepage' %}">homepage </a>
 
+                                 <a class="nav-link" href="{% url 'homepage' %}">homepage </a>
                                   <div>
                                   <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsecategories" aria-expanded="false" aria-controls="collapsecategories">
 
@@ -36,8 +43,23 @@
                                 <nav class="sb-sidenav-menu-nested nav accordion" id="collapsecategories">
 
                                     {% for category in all_categories %}
-                                 <a class="nav-link" href="{% url 'categorypage' category.cat_name %}" >{{category.cat_name }} </a>
-                                    {% endfor %}
+                                 <li><a class="nav-link" href="{% url 'categorypage' category.cat_name %}" >{{category.cat_name }} </a>
+
+                                 <form method="POST" action="/app/home/{{category.id}}">
+
+                                {% csrf_token %}
+                                {% if category in sub_cat %}
+                                  <input type="hidden" name="subscribe" value="0">
+                                   <button class="btn btn-danger text-white ml-sm-5">Unsubscribe</button>
+                                {% else %}
+                                    <input type="hidden" name="subscribe" value="1">
+                                    <button class="btn btn-danger text-white ml-sm-5">Subscribe</button>
+                                 {% endif %}
+
+                              </form>
+                          </li>
+
+                                {% endfor %}
                                    
                                 </nav>
                                 </div>
@@ -55,15 +77,90 @@
                                 <nav class="sb-sidenav-menu-nested nav accordion" id="collapsetags">
 
                                     {% for tag in all_tags %}
-                                      <a class="nav-link" href="#" >{{tag.name }} </a>
+                                      <a class="nav-link" href="{% url 'tagpage' tag.name %}" >
+                                      {{tag.name }} </a>
                                     {% endfor %}
                                    
                                 </nav>
                             </div>
+
                     </div>
                     <div class="sb-sidenav-footer">
                         <div class="small">Logged in as:</div>
                         Admin-user
                     </div>
                 </nav>
-             {% endblock %}
+            </div>
+
+
+            <div id="layoutSidenav_content">
+                <main>
+                    <div class="container-fluid">
+                        <h1 class="mt-4">Tags Table</h1>
+                        <ol class="breadcrumb mb-4">
+                            <li class="breadcrumb-item"><a href="/index">ManageBlog</a></li>
+                            <li class="breadcrumb-item active">Tables</li>
+                        </ol>
+<!-- 
+                        <div class="card mb-4">
+                            <div class="card-body">DataTables is a third party plugin that is used to generate the demo table below. For more information about DataTables, please visit the <a target="_blank" href="https://datatables.net/">official DataTables documentation</a>.</div>
+                        </div> -->
+
+                        <div class="card mb-4">
+                            <div class="card-header"><i class="fas fa-table mr-1"></i>All posts</div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+
+                                    <h1><a href="{% url 'addtag' %}">AddTag</a></h1>
+                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                        <thead>
+                                            <tr>
+                                                <th>TagId</th>
+                                                <th>TagName</th>
+                                                <!-- <th>PostTitle</th> -->
+                                                
+                                                <th>EditTag</th>
+                                                <th>DeleteTag</th>
+                                                
+                                            </tr>
+                                        </thead>
+                                    
+                                        <tbody>
+                                            {% for tag in all_tags %}
+                                            <tr>
+                                            <td>{{tag.id}}</td>
+                                            <td>{{tag.name}}</td>
+                                            <!-- <td>{{tag.Post.post_tag }}</td> -->
+                                            
+                                            <td><a href="{% url 'edittag' tag.id %}"> EditTag</a></td>
+                                            <td><a href="{% url 'deletetag' tag.id %}"> DeleteTag </a></td>
+                                            </tr>
+                                            {% endfor %}
+                                            
+                                        </tbody>
+
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+            </div>
+
+              <!--   <footer class="py-4 bg-light mt-auto">
+                    <div class="container-fluid">
+                        <div class="d-flex align-items-center justify-content-between small">
+                            <div class="text-muted">Copyright &copy; Your Website 2019</div>
+                            <div>
+                                <a href="#">Privacy Policy</a>
+                                &middot;
+                                <a href="#">Terms &amp; Conditions</a>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+        </div> -->
+
+{% endblock %}
+

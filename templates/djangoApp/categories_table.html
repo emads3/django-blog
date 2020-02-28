@@ -1,12 +1,13 @@
-
 {% extends "djangoApp/adminbase.html" %}
 {% block main %}
+
 
                               <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages"
                                 ><div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
                                  Manage Blog
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div
                             ></a>
+
                             <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
 
@@ -24,12 +25,11 @@
                                     <!--show all categories  in table -->
                                     <a class="nav-link" href="{% url 'categories_table' %}">categories </a>
                                     <a class="nav-link" href="{% url 'tag_table' %}">Tags </a>
-
                                 </nav>
                                 </div>
-                                   <a class="nav-link" href="{% url 'homepage' %}">homepage </a>
 
-                                   <div>
+                                 <a class="nav-link" href="{% url 'homepage' %}">homepage </a>
+                                  <div>
                                   <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsecategories" aria-expanded="false" aria-controls="collapsecategories">
 
 
@@ -42,6 +42,7 @@
 
                                     {% for category in all_categories %}
 <<<<<<< HEAD
+<<<<<<< HEAD
                                         <a class="nav-link" href="{% url 'categorypage' category.cat_name %}" >{{category.cat_name }} </a>
                                         {% comment %} {% if category in lst %}
                                             <a href= "{% url 'unsubscribe' cat_id= category%}">subcribed</a>
@@ -51,6 +52,25 @@
 =======
                                  <a class="nav-link" href="{% url 'categorypage' category.cat_name %}" >{{category.cat_name }} </a>
                                     {% endfor %}
+=======
+                                 <li><a class="nav-link" href="{% url 'categorypage' category.cat_name %}" >{{category.cat_name }} </a>
+
+                                 <form method="POST" action="/app/home/{{category.id}}">
+
+                                {% csrf_token %}
+                                {% if category in sub_cat %}
+                                  <input type="hidden" name="subscribe" value="0">
+                                   <button class="btn btn-danger text-white ml-sm-5">Unsubscribe</button>
+                                {% else %}
+                                    <input type="hidden" name="subscribe" value="1">
+                                    <button class="btn btn-danger text-white ml-sm-5">Subscribe</button>
+                                 {% endif %}
+
+                              </form>
+                          </li>
+
+                                {% endfor %}
+>>>>>>> manar
                                    
                                 </nav>
                                 </div>
@@ -68,12 +88,80 @@
                                 <nav class="sb-sidenav-menu-nested nav accordion" id="collapsetags">
 
                                     {% for tag in all_tags %}
+<<<<<<< HEAD
                                       <a class="nav-link" href="{% url 'categorypage' tag.name %}" >{{tag.name }} </a>
+>>>>>>> manar
+=======
+                                      <a class="nav-link" href="{% url 'tagpage' tag.name %}" >
+                                      {{tag.name }} </a>
 >>>>>>> manar
                                     {% endfor %}
                                    
                                 </nav>
                             </div>
+<<<<<<< HEAD
                            
                        {% endblock %}  
                   
+=======
+
+                    <div class="sb-sidenav-footer">
+                        <div class="small">Logged in as:</div>
+                        Admin-user
+                    </div>
+                </nav>
+            </div>
+
+
+            <div id="layoutSidenav_content">
+                <main>
+                    <div class="container-fluid">
+                        <h1 class="mt-4">Categories Table</h1>
+                        <ol class="breadcrumb mb-4">
+                            <li class="breadcrumb-item"><a href="/index">ManageBlog</a></li>
+                            <li class="breadcrumb-item active">Tables</li>
+                        </ol>
+<!-- 
+                        <div class="card mb-4">
+                            <div class="card-body">DataTables is a third party plugin that is used to generate the demo table below. For more information about DataTables, please visit the <a target="_blank" href="https://datatables.net/">official DataTables documentation</a>.</div>
+                        </div> -->
+
+                        <div class="card mb-4">
+                            <div class="card-header"><i class="fas fa-table mr-1"></i>All Categories</div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <h1><a href="{% url 'addcategory' %}">AddCategory</a></h1>
+                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                        <thead>
+                                            <tr>
+                                                <th>CategoryId</th>
+                                                <th>CategoryName</th>
+                                                <th>EditCategory</th>
+                                                <th>Delete_category</th>
+
+                                            </tr>
+                                        </thead>
+                                    
+                                        <tbody>
+
+                                            {% for category in all_categories %}
+                                            <tr>
+                                            <td>{{category.id}}</td>
+                                            <td>{{category.cat_name}}</td>
+ 
+                                            <td><a href="{% url 'editcategory' category.id %}">Edit_Category</a></td>
+                                            <td><a href="{% url 'deletecategory' category.id %}">Delete_category</a></td>
+                                            </tr>
+                                            {% endfor%}
+                                            
+                                        </tbody>
+
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+                <div>
+                {% endblock %}
+>>>>>>> manar
