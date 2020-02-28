@@ -1,5 +1,7 @@
 {% extends "djangoApp/adminbase.html" %}
 {% block main %}
+
+
                               <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
 
                                 <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
@@ -69,7 +71,7 @@
                             <button type="submit" class="btn btn-primary btn-sm">comment</button>
                         </form>
                         {% for comment in comment %}
-                        <h3 class="lead">{{ comment.comment_text }}</h3>
+                        <h3 class="lead">{{comment}}</h3>
                      <!--    <form method="POST" action="addcomment">
                             {% csrf_token %}
                             <label for="comment_reply"></label>
@@ -90,6 +92,7 @@
                         
                     </div>
                 </main>
+            </div>
 
 
 

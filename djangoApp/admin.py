@@ -1,7 +1,7 @@
 from django.contrib import admin
 # from .models import Forbidden_Words
 
-from .models import Post,Comments,post_likes,Categories,Tag
+from .models import Post,Comments,post_likes,Categories,Tags
 
 
 admin.site.register(Post)

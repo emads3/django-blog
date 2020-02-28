@@ -4,10 +4,16 @@ from django.utils import timezone
 
 class Categories(models.Model):
 	cat_name = models.CharField(max_length=200)
+	userId= models.ManyToManyField(User,blank=True)
 
 	def __str__(self):
 		return self.cat_name
 
+class Tags(models.Model):
+	name = models.CharField(max_length=200)
+	# post_tag = models.ManyToManyField(Post)
+	def __str__(self):
+		return self.name
 
 class Post(models.Model):
 	post_title = models.CharField(max_length = 100)
@@ -16,6 +22,7 @@ class Post(models.Model):
 	post_date = models.DateTimeField(default = timezone.now())
 	cat = models.ForeignKey(Categories , on_delete = models.DO_NOTHING)
 	user_id = models.ForeignKey(User , on_delete = models.DO_NOTHING)
+	tag = models.ManyToManyField(Tags,blank=True)
 
 	def __str__(self):
 		return self.post_title
@@ -37,9 +44,7 @@ class post_likes(models.Model):
 	likes = models.IntegerField(default = 0)
 	dislikes = models.IntegerField(default = 0)
 
-class Tag(models.Model):
-	name = models.CharField(max_length=200)
-	post_tag = models.ManyToManyField(Post)
+
 
 # class Reply(models.Model):
 # 	reply_text = models.CharField(max_length = 900)

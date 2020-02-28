@@ -1,11 +1,11 @@
 from django import forms
-from djangoApp.models import  Post ,  Categories , Tag
+from djangoApp.models import  Post ,  Categories , Tags
 from django.contrib.auth.models import User
 
 class PostForm(forms.ModelForm):
 	class Meta:
 		model = Post
-		fields = ['post_title','post_image','post_text','post_date','cat','user_id']
+		fields = ['post_title','post_image','post_text','post_date','cat','user_id' ,'tag']
 
 class CategoryForm(forms.ModelForm):
 	class Meta:
@@ -14,8 +14,8 @@ class CategoryForm(forms.ModelForm):
 
 class TagForm(forms.ModelForm):
 	class Meta:
-		model = Tag
-		fields = ['name' ,'post_tag'] #hna hzwod el fields bta3t el category elly h3adl 3leha
+		model = Tags
+		fields = ['name'] #hna hzwod el fields bta3t el category elly h3adl 3leha
 
 class UserForm(forms.ModelForm):
 	password2 = forms.CharField(widget=forms.PasswordInput(attrs={'class':'form-control'}))

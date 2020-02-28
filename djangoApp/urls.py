@@ -15,6 +15,7 @@ urlpatterns = [
   #------------------------------------------------------------------------------------------------------------
 		#categories url
 		path('categorypage/<name>',views.category,name='categorypage'),
+		path('home/<num>',views.subscribe),
 
 		#tags url
 		path('tagpage/<name>',views.tagpage,name='tagpage'),
