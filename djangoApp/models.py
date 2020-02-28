@@ -4,6 +4,7 @@ from django.utils import timezone
 
 class Categories(models.Model):
 	cat_name = models.CharField(max_length=200)
+	cat_id = models.AutoField(primary_key=True)
 	userId= models.ManyToManyField(User,blank=True)
 
 

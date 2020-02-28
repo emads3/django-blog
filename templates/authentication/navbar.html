@@ -32,11 +32,12 @@
             </form>
             {% endif %}
             </div>
-            <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
-            <div class="input-group">
-                <input class="form-control" type="text" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2" />
-                <div class="input-group-append">
-                    <button class="btn btn-primary" type="button"><i class="fas fa-search"></i></button>
+                <form class=" d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0" method="GET" action="/app/searchForPost">
+                <div class="input-group">
+                    <input class="form-control mr-sm-2" type="text" name='word' placeholder="Search" aria-label="Search" aria-describedby="basic-addon2" />
+                    {{request.GET.word}}
+
+                        <button class="btn btn-light nav-item my-2 my-sm-0" type="submit">search</button>
                     </div>
                 </div>
             </form>

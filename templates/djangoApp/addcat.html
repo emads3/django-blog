@@ -1,7 +1,7 @@
 <form method="POST">
  {% csrf_token %}
  
- {{category_form}}	
+ {{category_form.as_p}}	
 
  <button type="submit" class="btn bin-primary">submit</button>
 

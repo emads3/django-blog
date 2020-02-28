@@ -257,12 +257,12 @@ def addcategory(request):
 		return render(request,'djangoApp/createcategory.html/',context)  #path of addcategory.html
 
 def deletecategory(request,num):
-	obj = Categories.objects.get(id = num)
+	obj = Categories.objects.get(catid = num)
 	obj.delete()
 	return HttpResponseRedirect('/app/categories_table/')  #path of deletecategory.html
 
 def editcategory(request,num):
-	category=get_object_or_404(Categories,id=num)
+	category=get_object_or_404(Categories,cat_id=num)
 	category_form=CategoryForm(instance=category)
 	if request.method == "POST":
 		category_form=CategoryForm(request.POST,instance=category)
@@ -275,12 +275,12 @@ def editcategory(request,num):
 		return render(request,'djangoApp/createcategory.html/',context)
 
 def subscribe(request , num):
-	subcat=Categories.objects.get(id=num)
+	subcat=Categories.objects.get(cat_id=num)
 	if request.POST.get('subscribe')=='0':
 		subcat.userId.remove(request.user)
 	else:
 		subcat.userId.add(request.user)
-	return HttpResponseRedirect('/app/admin')
+	return HttpResponseRedirect('/app/admin/')
   #------------------------------------------------------------------
 #Tag
 
@@ -308,14 +308,14 @@ def deletetag(request,num):
 
 def edittag(request,num):
 	tag=get_object_or_404(Tags,id=num)
-	tag_form=TagForm(instance=category)
+	tag_form=TagForm(instance=tag)
 	if request.method == "POST":
 		tag_form=TagForm(request.POST,instance=tag)
 		if tag_form.is_valid():
 			tag_form.save()
 			return HttpResponseRedirect('/app/tag_table/')
 	else:
-		tag_form=CategoryForm(instance=category)
+		tag_form=CategoryForm(instance=tag)
 		context={'tag_form':tag_form}
 		return render(request,'djangoApp/addtag.html/',context)
 
@@ -352,14 +352,14 @@ def deleteforbbiddenWord(request,num):
 
 def editforbbiddenword(request , num):
 	word=get_object_or_404(Forbidden_Words,id=num)
-	forbbiddenWords_form=ForbiddenForm(instance=post)
+	forbbiddenWords_form=ForbiddenForm(instance=word)
 	if request.method=='POST':
-		forbbiddenWords_form=ForbiddenForm(request.POST ,request.FILES, instance=post )
+		forbbiddenWords_form=ForbiddenForm(request.POST,instance=word )
 		if forbbiddenWords_form.is_valid():
 			forbbiddenWords_form.save()
 			return HttpResponseRedirect('/app/forbiden_words_table/')
 	else:
-		forbbiddenWords_form=ForbiddenForm(instance=post)
+		forbbiddenWords_form=ForbiddenForm(instance=word)
 		context={'forbbiddenWords_form':forbbiddenWords_form}
 		return render(request,'djangoApp/addword.html/',context)
 

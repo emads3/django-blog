@@ -59,12 +59,7 @@ urlpatterns = [
 		path('addword/', views.addforbbiddenword, name='addword'), 
 		path('deleteword/<num>', views.deleteforbbiddenWord , name='deleteword'),
 		path('editword/<num>',views.editforbbiddenword,name='editword'),
-		# path('addforbbiddenword/', views.addforbbiddenword , name='addforbbiddenword'),  #form to add  forbidden word
-		# path('deleteforbbiddenWord/<num>', views.deleteforbbiddenWord),  #mogarad query fel database
-
-		# path('register/',views.register),
-		# path('login/',views.login),
-#---------------------------------------------------------
+		#----------------------------------------------------
 	#subscribes
 	path('sub/<cat_id>', views.subscribes, name ='subscribes'),
 	path('unsub/<cat_id>', views.unsubscribe, name ='unsubscribe'),
