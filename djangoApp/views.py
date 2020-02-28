@@ -50,6 +50,20 @@ def tagpage(request , name):
 	             'all_tags':all_tags}
 	return render(request , 'djangoApp/tagpage.html' ,context)
 
+
+
+def searchForPost(request):
+	print(request.GET.get('word'))
+	title=request.GET.get('word')
+	print(title)
+	latest_post_list=Post.objects.filter(post_title__icontains=title).order_by('-post_date')
+	print(latest_post_list)
+	all_categories=Categories.objects.all()
+	all_tags=Tag.objects.all()
+	context = {'latest_post_list': latest_post_list , 'all_categories':all_categories ,
+	            'all_tags':all_tags }
+	return render(request,'djangoApp/homepage.html',context)
+
 #-----------------------------------------------------------------------------------------------------
 
 #admin panel
@@ -66,7 +80,9 @@ def admin(request):
 def home(request):
 	latest_post_list = Post.objects.order_by('-post_date')[:5]
 	all_categories=Categories.objects.all()
-	context = {'latest_post_list' : latest_post_list}
+	all_tags=Tag.objects.all()
+	context = {'latest_post_list' : latest_post_list , 'all_categories':all_categories ,
+	                      'all_tags':all_tags }
 	return render(request,'djangoApp/homepage.html',context)
 
 

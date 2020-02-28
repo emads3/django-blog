@@ -2,11 +2,15 @@ from django.urls import path,include
 from djangoApp import views
 
 urlpatterns = [
+
+		path('searchForPost', views.searchForPost , name='searchForPost'),
 		# path('index/',views.adminPanel),
 		path('admin/',views.admin,name='admin'),
 		# path('home/', views.home),
 		path('homepage/', views.home , name='homepage'),
+
 		path('showpost/<num>/',views.showpost,name='showpost'),
+		
 
   #------------------------------------------------------------------------------------------------------------
 		#categories url
