@@ -1,8 +1,36 @@
-<form method="POST" enctype="multipart/form-data">
- {% csrf_token %}
- 
- {{ post_form.as_p }}	
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Post</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <title>Blog</title>
+    <style>
+        body {
+            background-color: #8fd19e;
+        }
+    </style>
+</head>
+<body>
+<form>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 m-auto">
+                <div class="card mb-3">
+                    <div class="card-body" id="post">
+                        <form method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            {{ post_form.as_p }}
 
- <button type="submit" class="btn bin-primary">submit</button>
-
+                            <center>
+                                <button type="submit" class="btn btn-success">submit</button>
+                            </center>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </form>
+</body>
+</html>
