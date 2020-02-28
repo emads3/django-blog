@@ -58,6 +58,6 @@ class subscribe(models.Model):
 
 class PostRates(models.Model):
 	post_id = models.ForeignKey(Post, on_delete = models.CASCADE)
-	user_id = models.ForeignKey(User, on_delete = models.CASCADE)
+	user_id = models.ForeignKey(User , on_delete = models.DO_NOTHING)
 	rate = models.IntegerField(null=False)
 

@@ -56,11 +56,13 @@ def searchForPost(request):
 
 
 def admin(request):
+	latest_post_list = Post.objects.order_by('-post_date')[:6]
 	all_categories=Categories.objects.all()
 	all_tags=Tags.objects.all()
 	sub_cat=Categories.objects.filter(userId=request.user.id)
-	context={'all_categories':all_categories , 'all_tags':all_tags , 'sub_cat':sub_cat}
-	return render(request,'djangoApp/adminpanel.html/',context)
+	context={'all_categories':all_categories , 'all_tags':all_tags , 'sub_cat':sub_cat ,
+	          'latest_post_list' : latest_post_list }
+	return render(request,'djangoApp/homepage.html/',context)
 
 def home(request):
 	latest_post_list = Post.objects.order_by('-post_date')[:5]

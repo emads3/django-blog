@@ -43,7 +43,7 @@
                                     {% for category in all_categories %}
                                  <li><a class="nav-link" href="{% url 'categorypage' category.cat_name %}" >{{category.cat_name }} </a>
 
-                                 <form method="POST" action="/app/home/{{category.id}}">
+                                 <form method="POST" action="/app/home/{{category.cat_id}}">
 
                                 {% csrf_token %}
                                 {% if category in sub_cat %}

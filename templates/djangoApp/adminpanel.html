@@ -83,4 +83,35 @@
 
 
 
+ <div id="layoutSidenav_content">
+                <main>
+                    <div class="container-fluid">
+                     <h1 class="text-center mb-3">Post</h1>    
+                            {%if latest_post_list%}
+                                {%for post in latest_post_list%}
+
+                                       <center><a href="{% url 'showpost' post.id %}"> {{ post.post_title}} </a></center>
+                                        <center>
+                                            <a href="{% url 'showpost' post.id %}"> 
+                                            <img src="{{ post.post_image.url }}" width="450px" height="350px">
+                                            </a>
+                                        </center>
+                                        <br>
+                                        <!-- <p class="lead">{{ post.post_text }}</p>                                 -->
+                                        <center><p class="lead">{{ post.post_date }}</p></center>
+                                       <!--  <a href="likes" class="btn btn-primary btn-sm">Like</a>
+                                        <a href="" class="btn btn-primary btn-sm">Dislike</a>
+                                        <span class="badge badge-success float-right">Dislikes</span>
+                                        <span class="badge badge-success float-right">Likes</span> -->
+                                        <hr>
+                                {%endfor%}
+                            {%endif%}
+                    </div>
+                </main>
+            </div>
+
+
+
+
+
 {% endblock %}
